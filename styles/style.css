@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+@import url(./boxicons.css);
+@import url(./variables.css);
+
+/* Estilos globales. */
+* {
+  font-family: 'Jost', Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(../assets/images/background.png);
+  background-repeat: repeat;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: var(--primary-blue-color);
+  color: white;
+  margin: 0;
+  padding: 0.25rem 2rem .25rem .5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main {
+  margin: 0;
+  background-color: white;
+  padding: 1rem;
+}
+
+footer {
+  background-color: var(--secondary-blue-color);
+  color: white;
+  text-align: center;
+  padding: .75rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* Distribución de las secciones principales de una página del sitio. */
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* Clase para el efecto del subrayado */
+.title {
+  position: relative;
+  /* Usamos inline-block para mantener el centrado */
+  display: inline-block;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background: var(--secondary-blue-color);
+  transition: width 0.5s;
+}
+
+.title:hover::after {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.logo {
+  width: 80px;
+  border-radius: 50%;
+  margin: .25rem;
+  padding: 8px;
+  background-color: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  /* Evita que el brand se encoja */
+  flex-shrink: 0;
+}
+
+.brand-heading {
+  font-size: 1.3rem;
+}
+
+.nav-bar {
+  /* Empuja el nav hacia la derecha */
+  margin-left: auto;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.heading-2 {
+  color: var(--secondary-blue-color);
+  margin-block-end: 0;
+}
+
+.social-networks {
+  margin: auto;
+  display: flex;
+  gap: .75rem;
+}
+
+.social-networks a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Para pantallas de escritorio */
+@media screen and (min-width: 768px) {
+  main {
+    margin: 0 10%;
+    padding: 2rem;
+  }
+
+  .social-networks {
+    margin: 0;
+  }
+}

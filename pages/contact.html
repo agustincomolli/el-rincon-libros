@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Rincón de los Libros - Contacto</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/contact.css">
+  <link rel="stylesheet" href="../styles/whatsapp.css">
+  <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
+</head>
+<body class="layout">
+  <header>
+    <div class="brand">
+      <img class="logo" src="../assets/images/logo.png" alt="Logo" width="100px">
+      <h2 class="brand-heading">El Rincón de los Libros</h2>
+    </div>
+    <nav class="nav-bar">
+      <ul class="nav-menu">
+        <li><a class="nav-link" href="../index.html">Inicio</a></li>
+        <li><a class="nav-link" href="./books.html">Libros</a></li>
+        <li><a class="nav-link" href="./reviews.html">Reseñas</a></li>
+        <li><a class="nav-link" href="#">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2 class="heading-2 title">Contacto</h2>
+    <div class="status-message">
+      <div class="alert-title">Su mensaje ha sido enviado exitosamente</div>
+      <div class="alert-message">¡Gracias por contactarte con nosotros 😀!<br> Pronto nos comunicaremos.</div>
+    </div>
+    <form id="contact-form" class="form-contact" action="https://formspree.io/f/myyqoqvl" method="post">
+      <div class="form-container">
+        <label class="margin-top-controls" for="name">Nombre:</label>
+        <input type="text" name="name" id="name" placeholder="Juan Perez" required>
+
+        <label class="margin-top-controls" for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="alguien@example.com.ar" required>
+
+        <label class="margin-top-controls" for="comments">Comentarios:</label>
+        <textarea name="comments" id="comments" cols="50" rows="10" placeholder="Escribe tu comentario aquí"
+          required></textarea>
+
+        <button class="margin-top-controls" type="submit">Enviar</button>
+      </div>
+    </form>
+
+    <!-- WhatsApp Floating button -->
+    <div class="whatsapp">
+      <div class="tooltip">
+        <span class="tooltiptext">¡Estamos en Whatsapp!</span>
+        <a href="https://wa.me/5492226680056" target="_blank" class="whatsapp-float bounce">
+          <i class='bx bxl-whatsapp'></i>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="author">
+      &copy; 2024 Agustín Comolli. Todos los derechos reservados.
+    </div>
+    <nav class="social-networks">
+      <a href="https://www.facebook.com"><i class='bx bxl-facebook-circle'></i></a>
+      <a href="https://www.linkedin.com"><i class='bx bxl-linkedin-square'></i></a>
+      <a href="https://www.instagram.com"><i class='bx bxl-instagram-alt'></i></a>
+      <a href="https://www.twitter.com"><i class='bx bxl-twitter'></i></a>
+      <a href="https://www.youtube.com"><i class='bx bxl-youtube'></i></a>
+    </nav>
+  </footer>
+
+  <script src="../scripts/contact.js"></script>
+</body>
+</html>
