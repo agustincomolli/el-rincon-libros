@@ -6,26 +6,25 @@
 
 /* Estilos globales. */
 * {
-  font-family: 'Jost', Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: 'Jost', Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --header-height: 6rem;
 }
 
 body {
   background-image: url(../assets/images/background.png);
   background-repeat: repeat;
-  margin: 0;
-  padding: 0;
 }
 
 header {
+  height: var(--header-height);
   background-color: var(--primary-blue-color);
   color: white;
-  margin: 0;
-  padding: 0.25rem 2rem .25rem .5rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
 }
 
 main {
@@ -54,6 +53,11 @@ h3 {
 
 h1 {
   text-align: center;
+  margin: 1rem 0;
+}
+
+p {
+  margin: 1rem 0;
 }
 
 /* Distribución de las secciones principales de una página del sitio. */
@@ -92,8 +96,7 @@ h1 {
 .logo {
   width: 80px;
   border-radius: 50%;
-  margin: .25rem;
-  padding: 8px;
+  padding: 6px;
   background-color: white;
 }
 
@@ -107,24 +110,57 @@ h1 {
 
 .brand-heading {
   font-size: 1.3rem;
+  width: 200px;
+  word-wrap: break-word;
 }
 
 .nav-bar {
-  /* Empuja el nav hacia la derecha */
-  margin-left: auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 1rem;
+}
+
+.nav-button-label {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+#nav-button {
+  display: none;
+}
+
+/* Cuando el checkbox esté marcado, mostrar el menu */
+#nav-button:checked + .nav-menu {
+  height: calc(100vh - var(--header-height));
+  z-index: 9999;
 }
 
 .nav-menu {
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  height: 0;
+  overflow: hidden;
   list-style: none;
   display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  transition: all 0.5s;
 }
 
 .nav-link {
   text-decoration: none;
   color: white;
+  color: black;
+  font-size: 1.7rem;
+  font-weight: bold;
 }
 
 .heading-2 {
@@ -162,6 +198,39 @@ h1 {
   main {
     margin: 0 10%;
     padding: 2rem;
+  }
+
+  .brand-heading {
+    font-size: 1.3rem;
+    width: auto;
+  }
+  
+  .nav-bar {
+    padding: 0 1.5rem;
+  }
+
+  .nav-button-label {
+    display: none;
+  }
+
+  .nav-menu {
+    position: static;
+    width: auto;
+    height: auto;
+    flex-direction: row;
+    gap: 2rem;
+    background-color: var(--primary-blue-color);
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+    font-weight: normal;
+    background-color: var(--primary-blue-color);
+    color: white;
+  }
+
+  .nav-link:hover {
+    color: var(--light-blue-color);
   }
 
   .social-networks {

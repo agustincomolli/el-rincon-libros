@@ -6,7 +6,7 @@
 }
 
 .review-card {
-  padding: 20px;
+  padding: 15px 20px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -23,11 +23,17 @@
 
 .review-card-content {
   display: flex;
-  /* align-items: center; */
   gap: 1rem;
 }
 
+.review-card-header {
+  align-self: center;
+}
+
 .review-card-img {
+  min-width: 133px;
+  height: 200px;
+  object-fit: cover;
   align-self: center;
 }
 
@@ -40,7 +46,7 @@
 
 .book-title {
   font-size: 1rem;
-  margin-block-end: .5rem;
+  margin-block: .5rem;
   word-wrap: break-word;
   max-width: 280px;
   overflow: hidden;
@@ -49,13 +55,14 @@
 }
 
 .user {
-  font-size: .75rem;
+  font-size: .8rem;
   margin-block: .5rem;
 }
 
 .review {
   font-size: .8rem;
   margin-block: 0;
+  max-height: 150px;
   word-break: break-word;
   hyphens: auto;
   word-wrap: break-word;
@@ -66,7 +73,7 @@
   font-size: .5rem;
 }
 
-.review-link-wrapper {
+.review-card-footer {
   margin-top: .5rem;
 }
 
