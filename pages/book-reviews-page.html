@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reseñas Literarias - Mi Librería</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #34495e;
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Filtros */
+        .filters {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters select {
+            padding: 0.5rem;
+            margin-right: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        /* Grid de reseñas */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Tarjeta de reseña */
+        .review-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .review-content {
+            padding: 1.5rem;
+        }
+
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: #f1c40f;
+        }
+
+        .review-title {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .review-excerpt {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .review-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .review-link:hover {
+            background-color: #2980b9;
+        }
+
+        /* Reseña destacada */
+        .featured-review {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-review img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Estilos del Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 900px;
+            margin: 2rem auto;
+            border-radius: 8px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .modal-close:hover {
+            background-color: #f0f0f0;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .review-full {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .review-full img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-info {
+            padding: 1rem 0;
+        }
+
+        .review-metadata {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .review-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .review-text {
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .book-details {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .book-details h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-metadata {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5rem 2rem;
+        }
+
+        .book-metadata dt {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .review-comments {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .comment {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .featured-review {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.5rem 0;
+            }
+
+            .review-full {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                width: calc(100% - 2rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reseñas Literarias</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#ultimas">Últimas Reseñas</a></li>
+            <li><a href="#populares">Más Populares</a></li>
+            <li><a href="#generos">Por Género</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="filters">
+            <select id="genre-filter">
+                <option value="">Todos los géneros</option>
+                <option value="ficcion">Ficción</option>
+                <option value="no-ficcion">No Ficción</option>
+                <option value="romance">Romance</option>
+                <option value="thriller">Thriller</option>
+            </select>
+
+            <select id="rating-filter">
+                <option value="">Todas las calificaciones</option>
+                <option value="5">5 estrellas</option>
+                <option value="4">4+ estrellas</option>
+                <option value="3">3+ estrellas</option>
+            </select>
+        </section>
+
+        <section class="featured-review">
+            <img src="/api/placeholder/600/800" alt="Libro destacado">
+            <div class="review-content">
+                <div class="review-meta">
+                    <span>Por María García</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+                <h2 class="review-title">Cien años de soledad - Gabriel García Márquez</h2>
+                <p class="review-excerpt">
+                    Una obra maestra que define el realismo mágico. La saga de la familia Buendía nos lleva por un viaje
+                    extraordinario a través de generaciones, donde la realidad y la fantasía se entrelazan de manera
+                    magistral.
+                    La prosa de García Márquez es hipnótica, creando un mundo tan vívido que parece más real que la
+                    realidad misma...
+                </p>
+                <a href="#" class="review-link">Leer reseña completa</a>
+            </div>
+        </section>
+
+        <section class="reviews-grid">
+            <article class="review-card">
+                <img src="/api/placeholder/400/300" alt="Libro 1" class="review-image">
+                <div class="review-content">
+                    <div class="review-meta">
+                        <span>Por Juan Pérez</span>
+                        <span class="stars">★★★★☆</span>
+                    </div>
+                    <h3 class="review-title">El nombre del viento</h3>
+                    <p class="review-excerpt">
+                        Una narrativa cautivadora que te sumerge en un mundo de magia y aventura...
+                    </p>
+                    <a href="#" class="review-link">Leer más</a>
+                </div>
+            </article>
+
+            <article class="review-card">
+                <img src="/api/placeholder/400/300" alt="Libro 2" class="review-image">
+                <div class="review-content">
+                    <div class="review-meta">
+                        <span>Por Ana Martínez</span>
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <h3 class="review-title">Duna</h3>
+                    <p class="review-excerpt">
+                        Una obra maestra de la ciencia ficción que explora temas profundos...
+                    </p>
+                    <a href="#" class="review-link">Leer más</a>
+                </div>
+            </article>
+
+            <article class="review-card">
+                <img src="/api/placeholder/400/300" alt="Libro 3" class="review-image">
+                <div class="review-content">
+                    <div class="review-meta">
+                        <span>Por Carlos Ruiz</span>
+                        <span class="stars">★★★★☆</span>
+                    </div>
+                    <h3 class="review-title">1984</h3>
+                    <p class="review-excerpt">
+                        Una distopía que sigue siendo relevante en la actualidad...
+                    </p>
+                    <a href="#" class="review-link">Leer más</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <!-- Modal para reseña completa -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cien años de soledad</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <article class="review-full">
+                    <div class="review-image-container">
+                        <img src="/api/placeholder/600/800" alt="Portada del libro">
+                    </div>
+
+                    <div class="review-details">
+                        <div class="review-info">
+                            <div class="review-metadata">
+                                <span class="review-author">Por María García</span>
+                                <span class="review-date">15 de octubre, 2024</span>
+                                <div class="review-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span>5.0</span>
+                                </div>
+                            </div>
+
+                            <div class="review-text">
+                                <p>Una obra maestra que define el realismo mágico. La saga de la familia Buendía nos
+                                    lleva por un viaje extraordinario a través de generaciones, donde la realidad y la
+                                    fantasía se entrelazan de manera magistral. La prosa de García Márquez es hipnótica,
+                                    creando un mundo tan vívido que parece más real que la realidad misma.</p>
+
+                                <p>El autor construye un universo completo en Macondo, donde lo extraordinario se vuelve
+                                    cotidiano y lo mundano adquiere tintes mágicos. La manera en que las diferentes
+                                    generaciones de la familia Buendía repiten patrones, nombres y destinos no solo es
+                                    un recurso narrativo brillante, sino que también sirve como metáfora de la historia
+                                    misma de América Latina.</p>
+
+                                <p>Particularmente destacable es el manejo del tiempo en la novela. La estructura
+                                    circular de la narrativa, donde el pasado y el presente se entrelazan
+                                    constantemente, crea una sensación de atemporalidad que refuerza los temas
+                                    principales de la obra: la soledad, el amor y la inevitabilidad del destino.</p>
+                            </div>
+                        </div>
+                        <div class="book-details">
+                            <h4>Detalles del libro</h4>
+                            <dl class="book-metadata">
+                                <dt>Autor</dt>
+                                <dd>Gabriel García Márquez</dd>
+
+                                <dt>Editorial</dt>
+                                <dd>Editorial Sudamericana</dd>
+
+                                <dt>Año</dt>
+                                <dd>1967</dd>
+
+                                <dt>Género</dt>
+                                <dd>Realismo mágico</dd>
+
+                                <dt>Páginas</dt>
+                                <dd>471</dd>
+                            </dl>
+                        </div>
+
+                        <section class="review-comments">
+                            <h4>Comentarios (3)</h4>
+                            <div class="comment">
+                                <div class="comment-author">Carlos Ruiz</div>
+                                <p>Excelente análisis. Coincido completamente con tu interpretación sobre la estructura
+                                    circular de la narrativa.</p>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-author">Ana López</div>
+                                <p>Me encantó tu perspectiva sobre el manejo del tiempo en la novela. ¿Has leído otras
+                                    obras de García Márquez?</p>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-author">Luis Martínez</div>
+                                <p>Gran reseña. La forma en que describes la construcción del mundo de Macondo es
+                                    fascinante.</p>
+                            </div>
+
+                            <!-- Formulario para añadir comentarios -->
+                            <div class="comment-form" style="margin-top: 2rem;">
+                                <h4 style="margin-bottom: 1rem;">Añadir comentario</h4>
+                                <form id="commentForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <div>
+                                        <input type="text" id="commentName" placeholder="Tu nombre"
+                                            style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                                    </div>
+                                    <div>
+                                        <textarea id="commentText" placeholder="Tu comentario"
+                                            style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; min-height: 100px;"></textarea>
+                                    </div>
+                                    <button type="submit"
+                                        style="background-color: #3498db; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; align-self: flex-start;">
+                                        Publicar comentario
+                                    </button>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad del modal
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('reviewModal');
+            const closeBtn = modal.querySelector('.modal-close');
+            const readMoreButtons = document.querySelectorAll('.review-link');
+
+            // Abrir modal
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // Previene el scroll del body
+                });
+            });
+
+            // Cerrar modal con el botón
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restaura el scroll
+            });
+
+            // Cerrar modal haciendo clic fuera
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Cerrar modal con la tecla ESC
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Funcionalidad de filtros
+            const genreFilter = document.getElementById('genre-filter');
+            const ratingFilter = document.getElementById('rating-filter');
+
+            genreFilter.addEventListener('change', applyFilters);
+            ratingFilter.addEventListener('change', applyFilters);
+
+            function applyFilters() {
+                const selectedGenre = genreFilter.value;
+                const selectedRating = ratingFilter.value;
+
+                console.log('Filtros aplicados:', {
+                    género: selectedGenre,
+                    calificación: selectedRating
+                });
+
+                // Aquí iría la lógica real de filtrado
+                // Por ahora solo muestra un mensaje en consola
+            }
+
+            // Funcionalidad del formulario de comentarios
+            const commentForm = document.getElementById('commentForm');
+
+            commentForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById('commentName').value;
+                const text = document.getElementById('commentText').value;
+
+                if (name && text) {
+                    // Crear nuevo comentario
+                    const newComment = document.createElement('div');
+                    newComment.className = 'comment';
+                    newComment.innerHTML = `
+                        <div class="comment-author">${name}</div>
+                        <p>${text}</p>
+                    `;
+
+                    // Insertar el comentario antes del formulario
+                    commentForm.parentElement.insertBefore(newComment, commentForm);
+
+                    // Limpiar el formulario
+                    commentForm.reset();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
