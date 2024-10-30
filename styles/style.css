@@ -4,16 +4,17 @@
 @import url(./boxicons.css);
 @import url(./variables.css);
 
+/* Variables. */
+:root {
+  --header-height: 6rem;
+}
+
 /* Estilos globales. */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Jost', Arial, Helvetica, sans-serif;
-}
-
-:root {
-  --header-height: 6rem;
 }
 
 body {
@@ -133,16 +134,34 @@ p {
   transition: transform 0.3s ease;
 }
 
-.nav-button-label:hover i{
+.nav-button-label:hover i {
   transform: rotate(180deg);
 }
 
+/* Estilos iniciales */
+.nav-button-label i.bx-x {
+  /* Oculta el icono de cerrar por defecto */
+  display: none;
+}
+
+/* Cuando el checkbox está marcado */
+#nav-button:checked~.nav-button-label i.bx-menu {
+  /* Oculta el icono de menú */
+  display: none;
+}
+
+#nav-button:checked~.nav-button-label i.bx-x {
+  /* Muestra el icono de cerrar */
+  display: inline;
+}
+
+/* Ocultar el checkbox para que solo el label sea visible */
 #nav-button {
   display: none;
 }
 
 /* Cuando el checkbox esté marcado, mostrar el menu */
-#nav-button:checked + .nav-menu {
+#nav-button:checked~.nav-menu {
   height: calc(100vh - var(--header-height));
   z-index: 9999;
 }
@@ -196,7 +215,8 @@ p {
   border-radius: 4px;
   transition: background-color 0.3s;
   border: none;
-  cursor: pointer;}
+  cursor: pointer;
+}
 
 .button:hover {
   background-color: var(--light-blue-color);
@@ -213,7 +233,7 @@ p {
     font-size: 1.3rem;
     width: auto;
   }
-  
+
   .nav-bar {
     padding: 0 1.5rem;
   }
@@ -230,7 +250,7 @@ p {
     gap: 2rem;
     background-color: var(--primary-blue-color);
   }
-  
+
   .nav-link {
     font-size: 1rem;
     font-weight: normal;
