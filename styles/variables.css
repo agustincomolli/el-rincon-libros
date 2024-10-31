@@ -1,5 +1,30 @@
+/* Importar fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+@font-face {
+  font-family: 'Jost';
+  src:
+    local('Jost'),
+    url('../assets/fonts/jost.woff2') format('woff2'),
+    url('../assets/fonts/jost.woff') format('woff'),
+    url('../assets/fonts/jost.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src:
+    local('Merriweather'),
+    url('../assets/fonts/merriweather.woff2') format('woff2'),
+    url('../assets/fonts/merriweather.woff') format('woff'),
+    url('../assets/fonts/merriweather.ttf') format('truetype');
+}
+
+/* Variables globales */
 :root {
   --primary-blue-color: #0E345A;
   --secondary-blue-color: #0F2840;
   --light-blue-color: #7C94AD;
+
+  --header-height: 6rem;
 }
