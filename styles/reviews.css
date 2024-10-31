@@ -54,8 +54,8 @@
 .book-title {
   font-size: 1rem;
   margin-block: .5rem;
-  word-wrap: break-word;
   max-width: 280px;
+  word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -70,9 +70,18 @@
   font-size: .8rem;
   margin-block: 0;
   flex-grow: 1;
+  
+  /* Muestra máximo 5 líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
   word-break: break-word;
-  hyphens: auto;
   word-wrap: break-word;
+  hyphens: auto;
 }
 
 .stars {
