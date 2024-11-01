@@ -56,32 +56,8 @@
   color: var(--secondary-blue-color);
 }
 
-.book:hover .add-to-cart-button {
-  transition: opacity 0.3s ease-in-out;
-  opacity: 1;
-}
-
 .add-to-cart-button {
-  background-color: var(--primary-blue-color);
-  font-size: 1.5rem;
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  padding: 4px;
-  text-decoration: none;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.add-to-cart-button:hover {
-  background-color: var(--light-blue-color);
+  display: none;
 }
 
 .search {
@@ -145,5 +121,33 @@
   .book-cover {
     height: 200px;
     width: 150px;
+  }
+
+  .book:hover .add-to-cart-button {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  }
+
+  .add-to-cart-button {
+    background-color: var(--primary-blue-color);
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 4px;
+    text-decoration: none;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .add-to-cart-button:hover {
+    background-color: var(--light-blue-color);
   }
 }

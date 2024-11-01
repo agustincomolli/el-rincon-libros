@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Rincón de los Libros - Libros</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/book-details.css">
+  <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
+</head>
+<body class="layout">
+  <header>
+    <nav class="nav-bar">
+      <div class="brand">
+        <img class="logo" src="../assets/images/logo.png" alt="Logo" width="100px">
+        <h2 class="brand-heading">El Rincón de los Libros</h2>
+      </div>
+      <input type="checkbox" id="nav-button">
+      <label for="nav-button" class="nav-button-label">
+        <i class='bx bx-menu' title="Abrir menú"></i>
+        <i class='bx bx-x' title="Cerrar menú"></i>
+      </label>
+      <ul class="nav-menu">
+        <li><a class="nav-link" href="../index.html">Inicio</a></li>
+        <li><a class="nav-link" href="../pages/books.html">Libros</a></li>
+        <li><a class="nav-link" href="./reviews.html">Reseñas</a></li>
+        <li><a class="nav-link" href="./contact.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <a href="javascript:history.back()" class="go-back">
+      <i class="bx bx-arrow-back"></i> Volver atrás
+    </a>
+    <section class="book-details">
+      <div class="book">
+        <aside class="book-image">
+          <img src="../assets/images/los-miserables.webp" alt="Portada de Los Miserables">
+        </aside>
+        <article class="book-info">
+          <h2 class="heading-2 title">Los Miserables</h2>
+          <p class="book-author">por Victor Hugo</p>
+          <p class="book-price">$ 52.410</p>
+          <a href="#" class="button add-to-cart-button" title="Agregar al carrito">Agregar al carrito<i class='bx bx-cart'></i></a>
+        </article>
+      </div>
+      <article class="overview">
+        <h3>Descripción</h3>
+        <p class="book-description">
+          En esta monumental novela, Victor Hugo nos sumerge en un torbellino de historias y personajes que giran en
+          torno a la palabra 'miserable'. Con una visión profunda y comprometida, el autor distingue entre los
+          miserables que luchan por su dignidad y aquellos que han perdido su humanidad. A través de una trama
+          apasionante que abarca desde la Revolución Francesa hasta las barricadas de 1832, Hugo invoca al progreso y la
+          justicia social, defendiendo el triunfo de las libertades personales y el camino hacia una sociedad más justa.
+          Una obra maestra de gran valor histórico y moral que nos hace reflexionar sobre la condición humana y el poder
+          del progreso.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="author">
+      &copy; 2024 Agustín Comolli. Todos los derechos reservados.
+    </div>
+    <nav class="social-networks">
+      <a href="https://www.facebook.com" title="¡Síguenos en Facebook!"><i class='bx bxl-facebook-circle'></i></a>
+      <a href="https://www.linkedin.com" title="¡Síguenos en LinkedIn!"><i class='bx bxl-linkedin-square'></i></a>
+      <a href="https://www.instagram.com" title="¡Síguenos en Instagram!"><i class='bx bxl-instagram-alt'></i></a>
+      <a href="https://www.twitter.com" title="¡Síguenos en Twitter!"><i class='bx bxl-twitter'></i></a>
+      <a href="https://www.youtube.com" title="¡Síguenos en YouTube!"><i class='bx bxl-youtube'></i></a>
+    </nav>
+  </footer>
+</body>
+</html>

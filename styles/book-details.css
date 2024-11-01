@@ -1,0 +1,108 @@
+.book-details {
+  flex-direction: column;
+  align-items: center;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.book-image {
+  align-self: center;
+  height: 300px;
+  margin-bottom: 1rem;
+  background-color: whitesmoke;
+  padding: 1rem;
+}
+
+.book-image img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-info {
+  width: 100%;
+}
+
+.book-author {
+  margin-block: 0;
+  font-size: .9rem;
+}
+
+.book-price {
+  font-size: 1.5rem;
+  color: var(--primary-blue-color);
+}
+
+.overview {
+  padding: 0 .5rem;
+}
+
+.book-description {
+  word-break: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.book-description::first-letter {
+  font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+  font-size: 4rem;
+  float: left;
+  margin-right: .5rem;
+  line-height: 1;
+}
+
+.add-to-cart-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  gap: 0.5rem;
+  margin: 0 1rem;
+}
+
+.go-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--primary-blue-color);
+}
+
+/* Para pantallas de escritorio */
+@media screen and (min-width: 768px) {
+  .book {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 10%;
+  }
+
+  .book-image {
+    align-self: flex-start;
+    margin-bottom: 0;
+    height: auto;
+    padding: 1rem;
+    max-height: 350px;
+  }
+
+  .book-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 350px;
+    object-fit: contain;
+  }
+
+  .add-to-cart-button {
+    display: inline-flex;
+    margin: 0;
+  }
+
+}
