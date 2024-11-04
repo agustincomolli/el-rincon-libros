@@ -217,7 +217,7 @@ p {
 /* Para pantallas de escritorio */
 @media screen and (min-width: 768px) {
   main {
-    margin: 0 10%;
+    margin: 0 5%;
     padding: 2rem;
   }
 
@@ -257,4 +257,11 @@ p {
   .social-networks {
     margin: 0;
   }
+}
+
+@media screen and (min-width: 1025px) {
+  main {
+    margin: 0 10%;
+  }
+
 }

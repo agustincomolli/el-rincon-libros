@@ -35,14 +35,39 @@
     </a>
     <section class="book-details">
       <div class="book">
-        <aside class="book-image">
-          <img src="../assets/images/los-miserables.webp" alt="Portada de Los Miserables">
-        </aside>
+        <img class="book-image" src="../assets/images/los-miserables.webp" alt="Portada de Los Miserables">
+        <!-- <aside class="book-image">
+        </aside> -->
         <article class="book-info">
           <h2 class="heading-2 title">Los Miserables</h2>
           <p class="book-author">por Victor Hugo</p>
           <p class="book-price">$ 52.410</p>
-          <a href="#" class="button add-to-cart-button" title="Agregar al carrito">Agregar al carrito<i class='bx bx-cart'></i></a>
+          <a href="#" class="button add-to-cart-button" title="Agregar al carrito">
+            Agregar al carrito <i class='bx bx-cart'></i>
+          </a>
+          <!-- Contenedor del accordion -->
+          <details class="accordion">
+            <!-- Botón del accordion -->
+            <summary class="accordion-button">
+              Más Información
+              <!-- Icono de más -->
+              <i class="bx bx-plus plus-icon"></i>
+              <!-- Icono de menos -->
+              <i class="bx bx-minus minus-icon"></i>
+            </summary>
+            <!-- Contenedor del contenido del accordion -->
+            <div class="accordion-collapse collapse">
+              <!-- Contenido del accordion -->
+              <div class="accordion-body">
+                <p>Género: Novela</p>
+                <p>Publicado en: 1950</p>
+                <p>Páginas: 1000</p>
+                <p>Editorial: Editorial Nacional</p>
+                <p>Idioma: Español</p>
+                <p>ISBN: 978-84-10-5038-3</p>
+              </div>
+            </div>
+          </details>
         </article>
       </div>
       <article class="overview">
