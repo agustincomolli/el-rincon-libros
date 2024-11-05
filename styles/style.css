@@ -97,14 +97,18 @@ p {
   display: flex;
   align-items: center;
   gap: .5rem;
-  /* Evita que el brand se encoja */
-  flex-shrink: 0;
 }
 
 .brand-heading {
   font-size: 1.3rem;
-  width: 200px;
+  width: auto;
   word-wrap: break-word;
+  /* Permite romper palabras largas */
+  word-break: break-word;
+  /* Agrega guiones si es necesario */
+  hyphens: auto;
+  /* Permite que tome el espacio disponible */
+  flex: 1;
 }
 
 .nav-bar {
@@ -112,7 +116,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: 0 1rem;
 }
 
