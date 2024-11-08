@@ -17,22 +17,3 @@ const a = document.createElement('a');
 a.href = URL.createObjectURL(file);
 a.download = fileName;
 a.click();
-
-
-// Cargar los datos del archivo JSON cada 10 libros por página
-const pageSize = 10;
-let currentPage = 1;
-const loadBooks = async () => {
-    const response = await fetch(fileName);
-    const data = await response.json();
-    const start = (currentPage - 1) * pageSize;
-    const end = currentPage * pageSize;
-    const booksToShow = data.slice(start, end);
-    // Mostrar los libros en la página
-    // ...
-    currentPage++;
-    if (currentPage <= Math.ceil(data.length / pageSize)) {
-        setTimeout(loadBooks, 1000);
-    }
-};
-loadBooks();
