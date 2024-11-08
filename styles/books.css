@@ -108,6 +108,49 @@
   font-size: 20px;
 }
 
+.pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.pagination ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap:0;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s ease;
+  padding: .5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination a:hover {
+  color: #666;
+  background-color: whitesmoke;
+  border-radius: 5px;
+}
+
+.pagination .prev,
+.pagination .next {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.pagination .page-numbers {
+  font-size: 1.2rem;
+}
+
 /* Para pantallas de escritorio */
 @media screen and (min-width: 768px) {
   .book {
@@ -149,5 +192,9 @@
 
   .add-to-cart-button:hover {
     background-color: var(--light-blue-color);
+  }
+
+  .pagination ul {
+    gap: .75rem;
   }
 }
