@@ -1,0 +1,89 @@
+/*======================
+    404 page
+=======================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+
+body {
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: "Arvo", Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main,
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-block: 0;
+}
+
+.cavern-man {
+  max-width: 100%;
+}
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.info {
+  text-align: center;
+}
+
+.link_404 {
+  color: #fff !important;
+  padding: 10px 20px;
+  background-color: #0E345A;
+  margin: 20px 0;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+@media(min-width:824px) {
+  body {
+    padding: 40px;
+  }
+
+  .title {
+    font-size: 4rem;
+    position: relative;
+    top: 40px;
+  }
+
+  .image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cavern-man {
+    max-width: 80%;
+  }
+
+
+  .subtitle {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  .subtitle,
+  .info {
+    margin-block: 0;
+    margin-bottom: 1rem;
+  }
+
+}
