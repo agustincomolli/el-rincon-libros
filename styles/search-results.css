@@ -1,0 +1,17 @@
+.go-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--primary-blue-color);
+  margin-top: 1rem;
+}
+
+.go-back:hover {
+  font-weight: bolder;
+}
+
+.go-back:hover i {
+  font-weight: 900;
+}
