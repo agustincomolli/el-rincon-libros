@@ -30,7 +30,7 @@ function loadSearchResults() {
             bookElement.innerHTML = `
           <h3 class="book-title" title="${book.title}">${book.title}</h3>
           <h4 class="book-author">${book.author}</h4>
-          <a href="./book-details.html?bookId=${book.id}">
+          <a href="./book-details.html?id=${book.id}">
             <img class="book-cover" src="../assets/images/${book.cover}" alt="Portada de ${book.title}" height="300px">
           </a>
           <p class="book-price">${book.price}</p>
