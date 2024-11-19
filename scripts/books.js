@@ -1,5 +1,15 @@
+const searchInput = document.querySelector("#search");
+const searchButton = document.querySelector("#search-button");
+
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
+
+    searchButton.addEventListener('click', search);
+    searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            search();
+        }
+    });
 });
 
 /**
@@ -103,4 +113,32 @@ function updatePagination(currentPage, totalPages) {
     nextButton.innerHTML = `<a href="#" class="next" title="Siguiente"><i class='bx bxs-chevron-right'></i></a>`;
     nextButton.querySelector('a').addEventListener('click', () => loadData(currentPage + 1));
     paginationContainer.appendChild(nextButton);
+}
+
+/**
+ * Busca los libros que coincidan con el título, autor o género que se
+ * introdujo en el campo de búsqueda.
+ *
+ * @returns {undefined}
+ */
+function search() {
+    const searchQuery = document.querySelector("#search").value.toLowerCase();
+
+    fetch("../data/books.json")
+        .then(response => response.json())
+        .then(books => {
+            // Filtrar los libros que coincidan con el título, autor o género.
+            const results = books.filter(book =>
+                book.title.toLowerCase().includes(searchQuery) ||
+                book.author.toLowerCase().includes(searchQuery) ||
+                book.genre.toLowerCase().includes(searchQuery)
+            );
+
+            // Guardar los resultados en localStorage para pasarlos entre páginas.
+            localStorage.setItem("searchResults", JSON.stringify(results));
+
+            // Redirigir con el término buscado en la URL
+            window.location.href = `./search-results.html?query=${encodeURIComponent(searchQuery)}`;
+        })
+        .catch(error => console.error('Error cargando los libros:', error));
 }
