@@ -66,34 +66,34 @@ function loadSearchResults(page = 1) {
  * @returns {undefined}
  */
 function updatePagination(currentPage, totalPages) {
-    const paginationContainer = document.querySelector('.pagination ul');
+    const paginationContainer = document.querySelector(".pagination ul");
     paginationContainer.replaceChildren();
 
     // Agregar el botón "Anterior"
-    const prevButton = document.createElement('li');
-    prevButton.innerHTML = `<a href="#" class="prev" title="Anterior"><i class='bx bxs-chevron-left'></i></a>`;
+    const prevButton = document.createElement("li");
+    prevButton.innerHTML = `<a href="#" class="prev" title="Anterior"><i class="bx bxs-chevron-left"></i></a>`;
     if (currentPage > 1) {
-        prevButton.querySelector('a').addEventListener('click', () => loadSearchResults(currentPage - 1));
+        prevButton.querySelector("a").addEventListener("click", () => loadSearchResults(currentPage - 1));
     } else {
-        prevButton.querySelector('a').classList.add('disabled');
+        prevButton.querySelector("a").classList.add("disabled");
     }
     paginationContainer.appendChild(prevButton);
 
     // Agregar los números de página
     for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('li');
-        pageButton.innerHTML = `<a href="#" class="page-numbers${currentPage === i ? ' active' : ''}">${i}</a>`;
-        pageButton.querySelector('a').addEventListener('click', () => loadSearchResults(i));
+        const pageButton = document.createElement("li");
+        pageButton.innerHTML = `<a href="#" class="page-numbers${currentPage === i ? " active" : ""}">${i}</a>`;
+        pageButton.querySelector("a").addEventListener("click", () => loadSearchResults(i));
         paginationContainer.appendChild(pageButton);
     }
 
     // Agregar el botón "Siguiente"
-    const nextButton = document.createElement('li');
-    nextButton.innerHTML = `<a href="#" class="next" title="Siguiente"><i class='bx bxs-chevron-right'></i></a>`;
+    const nextButton = document.createElement("li");
+    nextButton.innerHTML = `<a href="#" class="next" title="Siguiente"><i class="bx bxs-chevron-right"></i></a>`;
     if (currentPage < totalPages) {
-        nextButton.querySelector('a').addEventListener('click', () => loadSearchResults(currentPage + 1));
+        nextButton.querySelector("a").addEventListener("click", () => loadSearchResults(currentPage + 1));
     } else {
-        nextButton.querySelector('a').classList.add('disabled');
+        nextButton.querySelector("a").classList.add("disabled");
     }
     paginationContainer.appendChild(nextButton);
 }

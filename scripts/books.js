@@ -1,10 +1,10 @@
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search-button");
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     loadData();
 
-    searchButton.addEventListener('click', search);
+    searchButton.addEventListener("click", search);
     searchInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             search();
@@ -24,11 +24,11 @@ function loadData(page = 1) {
     const startIndex = (page - 1) * booksPerPage;
     const endIndex = startIndex + booksPerPage;
 
-    fetch('/data/books.json')
+    fetch("/data/books.json")
         .then(response => response.json())
         .then(data => {
-            const booksContainer = document.querySelector('.books-container');
-            booksContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los nuevos libros
+            const booksContainer = document.querySelector(".books-container");
+            booksContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar los nuevos libros
 
             for (let i = startIndex; i < endIndex && i < data.length; i++) {
                 const book = data[i];
@@ -38,7 +38,7 @@ function loadData(page = 1) {
 
             updatePagination(page, Math.ceil(data.length / booksPerPage));
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error("Error:", error));
 }
 
 /**
@@ -48,35 +48,35 @@ function loadData(page = 1) {
  * @returns {HTMLElement} - Elemento HTML que representa el libro
  */
 function createBookElement(book) {
-    const bookElement = document.createElement('div');
-    bookElement.className = 'book';
+    const bookElement = document.createElement("div");
+    bookElement.className = "book";
 
-    const titleElement = document.createElement('h3');
-    titleElement.className = 'book-title';
+    const titleElement = document.createElement("h3");
+    titleElement.className = "book-title";
     titleElement.textContent = book.title;
     bookElement.appendChild(titleElement);
 
-    const authorElement = document.createElement('h4');
-    authorElement.className = 'book-author';
+    const authorElement = document.createElement("h4");
+    authorElement.className = "book-author";
     authorElement.textContent = book.author;
     bookElement.appendChild(authorElement);
 
-    const coverElement = document.createElement('a');
+    const coverElement = document.createElement("a");
     coverElement.href = `./book-details.html?id=${book.id}`;
     coverElement.dataset.bookId = book.id;
     coverElement.innerHTML = `<img class="book-cover" src="../assets/images/${book.cover}" alt="Portada de ${book.title}" height="300px" title="${book.title}">`;
     bookElement.appendChild(coverElement);
 
-    const priceElement = document.createElement('p');
-    priceElement.className = 'book-price';
+    const priceElement = document.createElement("p");
+    priceElement.className = "book-price";
     priceElement.textContent = book.price;
     bookElement.appendChild(priceElement);
 
-    const addToCartElement = document.createElement('a');
-    addToCartElement.className = 'add-to-cart-button';
-    addToCartElement.href = '#';
-    addToCartElement.title = 'Agregar al carrito';
-    addToCartElement.innerHTML = '<i class=\'bx bx-cart\'></i>';
+    const addToCartElement = document.createElement("a");
+    addToCartElement.className = "add-to-cart-button";
+    addToCartElement.href = "#";
+    addToCartElement.title = "Agregar al carrito";
+    addToCartElement.innerHTML = "<i class=\"bx bx-cart\"></i>";
     bookElement.appendChild(addToCartElement);
 
     return bookElement;
@@ -91,27 +91,27 @@ function createBookElement(book) {
  * @returns {undefined}
  */
 function updatePagination(currentPage, totalPages) {
-    const paginationContainer = document.querySelector('.pagination ul');
-    paginationContainer.innerHTML = '';
+    const paginationContainer = document.querySelector(".pagination ul");
+    paginationContainer.innerHTML = "";
 
     // Agregar el botón "Anterior"
-    const prevButton = document.createElement('li');
-    prevButton.innerHTML = `<a href="#" class="prev" title="Anterior"><i class='bx bxs-chevron-left'></i></a>`;
-    prevButton.querySelector('a').addEventListener('click', () => loadData(currentPage - 1));
+    const prevButton = document.createElement("li");
+    prevButton.innerHTML = `<a href="#" class="prev" title="Anterior"><i class="bx bxs-chevron-left"></i></a>`;
+    prevButton.querySelector("a").addEventListener("click", () => loadData(currentPage - 1));
     paginationContainer.appendChild(prevButton);
 
     // Agregar los números de página
     for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('li');
-        pageButton.innerHTML = `<a href="#" class="page-numbers${currentPage === i ? ' active' : ''}">${i}</a>`;
-        pageButton.querySelector('a').addEventListener('click', () => loadData(i));
+        const pageButton = document.createElement("li");
+        pageButton.innerHTML = `<a href="#" class="page-numbers${currentPage === i ? " active" : ""}">${i}</a>`;
+        pageButton.querySelector("a").addEventListener("click", () => loadData(i));
         paginationContainer.appendChild(pageButton);
     }
 
     // Agregar el botón "Siguiente"
-    const nextButton = document.createElement('li');
-    nextButton.innerHTML = `<a href="#" class="next" title="Siguiente"><i class='bx bxs-chevron-right'></i></a>`;
-    nextButton.querySelector('a').addEventListener('click', () => loadData(currentPage + 1));
+    const nextButton = document.createElement("li");
+    nextButton.innerHTML = `<a href="#" class="next" title="Siguiente"><i class="bx bxs-chevron-right"></i></a>`;
+    nextButton.querySelector("a").addEventListener("click", () => loadData(currentPage + 1));
     paginationContainer.appendChild(nextButton);
 }
 
@@ -140,5 +140,5 @@ function search() {
             // Redirigir con el término buscado en la URL
             window.location.href = `./search-results.html?query=${encodeURIComponent(searchQuery)}`;
         })
-        .catch(error => console.error('Error cargando los libros:', error));
+        .catch(error => console.error("Error cargando los libros:", error));
 }
