@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Rincón de los Libros - Libros</title>
+  <title>El Rincón de los Libros - Contacto</title>
   <link rel="stylesheet" href="../styles/style.css">
-  <link rel="stylesheet" href="../styles/books.css">
+  <link rel="stylesheet" href="../styles/cart.css">
+  <link rel="stylesheet" href="../styles/whatsapp.css">
   <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
 </head>
 <body class="layout">
@@ -22,45 +23,26 @@
       </label>
       <ul class="nav-menu">
         <li><a class="nav-link" href="../index.html">Inicio</a></li>
-        <li><a class="nav-link" href="#">Libros</a></li>
+        <li><a class="nav-link" href="./books.html">Libros</a></li>
         <li><a class="nav-link" href="./reviews.html">Reseñas</a></li>
         <li><a class="nav-link" href="./contact.html">Contacto</a></li>
-        <li><a class="nav-link" href="./cart.html" title="Carrito de compras"><i class='bx bx-cart'></i></a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <h2 class="heading-2 title">Libros</h2>
+    <h2 class="heading-2 title">Carrito de compras</h2>
 
-    <section class="search">
-      <input type="text" class="search-input" name="search" id="search" placeholder="¿Que buscas?">
-      <button type="submit" class="search-button" id="search-button" title="Buscar"><i
-          class='bx bx-search'></i></button>
-    </section>
+    <!-- WhatsApp Floating button -->
+    <div class="whatsapp">
+      <div class="tooltip">
+        <span class="tooltiptext">¡Estamos en Whatsapp!</span>
+        <a href="https://wa.me/5492226680056" target="_blank" class="whatsapp-float bounce">
+          <i class='bx bxl-whatsapp'></i>
+        </a>
+      </div>
+    </div>
 
-    <section class="books">
-      <div class="books-container">
-        <!-- Ejemplo de un libro -->
-        <!-- <div class="book">
-          <h3 class="book-title" title="Moby Dick">Moby Dick</h3>
-          <h4 class="book-author">Herman Melville</h4>
-          <a href="./book-details.html" data-book-id="1"><img class="book-cover" src="../assets/images/moby-dick.webp"
-              alt="Portada de Moby Dick" height="300px" title="Moby Dick"></a>
-          <p class="book-price">$ 45.220</p>
-          <a href="#" class="add-to-cart-button" title="Agregar al carrito"><i class='bx bx-cart-add'></i></a>
-        </div> -->
-    </section>
-
-    <nav class="pagination">
-      <ul>
-        <li><a href="#" class="prev" title="Anterior"><i class='bx bxs-chevron-left'></i></a></li>
-        <li><a href="#" class="page-numbers">1</a></li>
-        <li><a href="#" class="page-numbers">2</a></li>
-        <li><a href="#" class="page-numbers">3</a></li>
-        <li><a href="#" class="next" title="Siguiente"><i class='bx bxs-chevron-right'></i></a></li>
-      </ul>
-    </nav>
   </main>
 
   <footer>
@@ -76,6 +58,5 @@
     </nav>
   </footer>
 
-  <script src="../scripts/books.js"></script>
 </body>
 </html>

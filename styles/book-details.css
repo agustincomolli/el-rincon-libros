@@ -1,5 +1,6 @@
 .book-details {
-  display: flex;
+  /* Ocultar el detalle del libro */
+  display: none;
   flex-direction: column;
   align-items: center;
 }

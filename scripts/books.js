@@ -76,7 +76,7 @@ function createBookElement(book) {
     addToCartElement.className = "add-to-cart-button";
     addToCartElement.href = "#";
     addToCartElement.title = "Agregar al carrito";
-    addToCartElement.innerHTML = "<i class=\"bx bx-cart\"></i>";
+    addToCartElement.innerHTML = "<i class='bx bx-cart-add'></i>";
     bookElement.appendChild(addToCartElement);
 
     return bookElement;

@@ -13,6 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadData() {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get("id");
+    const bookDetails = document.querySelector(".book-details");
+
+    // Mostrar el detalle del libro.
+    bookDetails.style.display = "flex";
 
     fetch("/data/books.json")
         .then(response => response.json())
