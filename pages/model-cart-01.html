@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .col {
+      flex: 1;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .item-info {
+      flex: 1;
+      margin: 0 15px;
+    }
+
+    .item-info p {
+      margin: 0;
+    }
+
+    .item-info .price {
+      font-size: 0.9rem;
+      color: gray;
+      text-decoration: line-through;
+    }
+
+    .item-info .discount-price {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .quantity-controls button, .quantity-controls input {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ddd;
+      background: #fff;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .quantity-controls input {
+      width: 40px;
+    }
+
+    .cart-item .delete {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .summary {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .summary p {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+
+    .summary .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .summary .btn-finalize {
+      width: 100%;
+      padding: 10px;
+      background: #003366;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .summary .btn-finalize:hover {
+      background: #001f4d;
+    }
+
+    .summary .secure-payment {
+      text-align: center;
+      font-size: 0.9rem;
+      color: gray;
+      margin-top: 10px;
+    }
+
+    .promo-section, .note-section {
+      margin-top: 20px;
+    }
+
+    .promo-section input, .note-section textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .promo-section button {
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      background: #003366;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .promo-section button:hover {
+      background: #001f4d;
+    }
+
+    textarea {
+      height: 60px;
+      resize: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: #003366;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <!-- Carrito -->
+      <div class="col">
+        <h3>Mi carrito</h3>
+        <div class="cart-item">
+          <img src="https://via.placeholder.com/80" alt="Producto">
+          <div class="item-info">
+            <p>Producto</p>
+            <p>$400,00</p>
+          </div>
+          <div class="quantity-controls">
+            <button>-</button>
+            <input type="text" value="1">
+            <button>+</button>
+          </div>
+          <p>$400,00</p>
+          <button class="delete">🗑</button>
+        </div>
+        <div class="cart-item">
+          <img src="https://via.placeholder.com/80" alt="Producto">
+          <div class="item-info">
+            <p>Producto</p>
+            <p><span class="price">$800,00</span> <span class="discount-price">$765,00</span></p>
+          </div>
+          <div class="quantity-controls">
+            <button>-</button>
+            <input type="text" value="1">
+            <button>+</button>
+          </div>
+          <p>$765,00</p>
+          <button class="delete">🗑</button>
+        </div>
+        <div class="promo-section">
+          <h4>Ingresar código promocional</h4>
+          <input type="text" placeholder="Ingresa un código de promoción">
+          <button>Aplicar</button>
+        </div>
+        <div class="note-section">
+          <h4>Agregar una nota</h4>
+          <textarea placeholder="P. ej., Dejar el pedido en la puerta"></textarea>
+        </div>
+      </div>
+      <!-- Resumen -->
+      <div class="col">
+        <div class="summary">
+          <h3>Resumen del pedido</h3>
+          <p>Subtotal: <span>$1.165,00</span></p>
+          <p><a href="#">Calcular envío</a></p>
+          <hr>
+          <p class="total">Total: <span>$1.165,00</span></p>
+          <button class="btn-finalize">Finalizar compra</button>
+          <p class="secure-payment">🔒 Pago seguro</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

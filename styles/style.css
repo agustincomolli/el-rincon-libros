@@ -33,7 +33,7 @@ footer {
   padding: .75rem 1.5rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: .5rem;
 }
@@ -223,6 +223,10 @@ p {
   main {
     margin: 0 5%;
     padding: 2rem;
+  }
+
+  footer {
+    justify-content: space-between;
   }
 
   .brand-heading {

@@ -1,0 +1,30 @@
+/* Reseteo de estilos */
+.cart-header,
+.cart-items,
+.cart-summary {
+  all: initial;
+}
+
+.cart {
+  margin-top: 1.5rem;
+  color: var(--primary-blue-color);
+}
+
+.cart-header h3 {
+  font-family: 'Jost', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--primary-blue-color);
+}
+
+
+
+/* Para pantallas de escritorio */
+@media screen and (min-width: 768px) {
+  .cart {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
