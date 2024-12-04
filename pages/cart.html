@@ -33,18 +33,49 @@
   <main>
     <h2 class="heading-2 title">Carrito de compras</h2>
 
-      <section class="cart">
-        <main class="cart-items">
-          <header class="cart-header">
-            <h3>Mi carrito</h3>
-          </header>
+    <section class="cart">
+      <section class="cart-items">
+        <header class="cart-header">
+          <h3>Mi carrito</h3>
+        </header>
+        <main class="cart-items-details">
         </main>
-        <aside class="cart-summary">
-          <header class="cart-header">
-            <h3>Resumen del pedido</h3>
-          </header>
-        </aside>
+        <footer class="cart-actions">
+          <button class="cart-action-button">
+            <span><i class='bx bx-purchase-tag bx-rotate-90'></i></span>
+            <span>Ingresar código promocional</span>
+          </button>
+          <button class="cart-action-button">
+            <span><i class='bx bx-file'></i></span>
+            <span>Agregar una nota</span>
+          </button>
+        </footer>
       </section>
+      <aside class="cart-summary">
+        <header class="cart-header">
+          <h3>Resumen del pedido</h3>
+        </header>
+        <main class="cart-subtotal">
+          <dl>
+            <dt>Subtotal</dt>
+            <dd>$ 0,00</dd>
+          </dl>
+          <dl>
+            <button id="calculate-shipping">Calcular envío</button>
+          </dl>
+        </main>
+        <footer class="cart-total">
+          <dl>
+            <dt>Total</dt>
+            <dd>$ 0,00</dd>
+          </dl>
+          <dl>
+            <button id="finalize-purchase">Finalizar compra</button>
+          </dl>
+          <p class="info secure-payment"><i class='bx bxs-lock-alt'></i> Pago seguro</p>
+        </footer>
+      </aside>
+    </section>
 
     <!-- WhatsApp Floating button -->
     <div class="whatsapp">
