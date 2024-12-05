@@ -9,24 +9,19 @@
   font-family: 'Jost', Arial, Helvetica, sans-serif;
 }
 
-body {
-  background-image: url(../assets/images/background.png);
-  background-repeat: repeat;
-}
-
-header {
+.main-header {
   height: var(--header-height);
   background-color: var(--primary-blue-color);
   color: white;
 }
 
-main {
+.main-content {
   margin: 0;
   background-color: white;
   padding: 1rem;
 }
 
-footer {
+.main-footer {
   background-color: var(--secondary-blue-color);
   color: white;
   text-align: center;
@@ -58,6 +53,8 @@ p {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  background-image: url(../assets/images/background.png);
+  background-repeat: repeat;
 }
 
 /* Clase para el efecto del subrayado */
@@ -224,12 +221,12 @@ p {
 
 /* Para pantallas de escritorio */
 @media screen and (min-width: 768px) {
-  main {
+  .main-content {
     margin: 0 5%;
     padding: 2rem;
   }
 
-  footer {
+  .main-footer {
     justify-content: space-between;
   }
 
@@ -277,7 +274,7 @@ p {
 }
 
 @media screen and (min-width: 1025px) {
-  main {
+  .main-content {
     margin: 0 10%;
   }
 

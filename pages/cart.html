@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="../assets/icons/favicon.png" type="image/x-icon">
 </head>
 <body class="layout">
-  <header>
+  <header class="main-header">
     <nav class="nav-bar">
       <div class="brand">
         <img class="logo" src="../assets/images/logo.png" alt="Logo" width="100px">
@@ -30,27 +30,35 @@
     </nav>
   </header>
 
-  <main>
+  <main class="main-content">
     <h2 class="heading-2 title">Carrito de compras</h2>
 
     <section class="cart">
-      <section class="cart-items">
+      <article class="cart-items">
         <header class="cart-header">
           <h3>Mi carrito</h3>
         </header>
         <main class="cart-items-details">
         </main>
         <footer class="cart-actions">
-          <button class="cart-action-button">
+          <button class="cart-action-button" id="promotional-code-button">
             <span><i class='bx bx-purchase-tag bx-rotate-90'></i></span>
             <span>Ingresar código promocional</span>
           </button>
-          <button class="cart-action-button">
+          <div class="promotional-code">
+            <input type="text" class="promotional-code-text" name="promotional-code" id="promotional-code"
+              autocomplete="on" placeholder="Código promocional">
+            <button class="promotional-code-button" id="apply-promotional-code">Aplicar</button>
+          </div>
+          <button class="cart-action-button" id="add-note-button">
             <span><i class='bx bx-file'></i></span>
             <span>Agregar una nota</span>
           </button>
+          <textarea class="cart-note" name="cart-note" id="cart-note" placeholder="P. ej., Dejar el pedido en la puerta"
+            maxlength="250" rows="3"></textarea>
         </footer>
-      </section>
+      </article>
+
       <aside class="cart-summary">
         <header class="cart-header">
           <h3>Resumen del pedido</h3>
@@ -89,7 +97,7 @@
 
   </main>
 
-  <footer>
+  <footer class="main-footer">
     <div class="author">
       &copy; 2024 Agustín Comolli. Todos los derechos reservados.
     </div>

@@ -1,14 +1,3 @@
-/* Reseteo de estilos */
-.cart-header,
-.cart-items,
-.cart-items-details,
-.cart-actions,
-.cart-summary,
-.cart-subtotal,
-.cart-total {
-  all: initial;
-}
-
 .cart {
   margin-top: 1.5rem;
   color: var(--primary-blue-color);
@@ -17,6 +6,36 @@
 .cart-header h3 {
   margin-bottom: 1rem;
   border-bottom: 1px solid #ddd;
+}
+
+.cart-actions {
+  max-width: 350px;
+  margin-bottom: 1.5rem;
+}
+
+.promotional-code-text,
+.cart-note {
+  margin-top: .5rem;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  border: 1px solid var(--primary-blue-color);
+  border-radius: 2px;
+}
+
+.promotional-code-button {
+  background-color: white;
+  color: var(--primary-blue-color);
+  padding: .5rem 1.25rem;
+  font-size: 1rem;
+  border: 1px solid var(--primary-blue-color);
+  cursor: pointer;
+  margin-left: .5rem;
+}
+
+.cart-note {
+  width: 100%;
+  overflow: hidden;
+  resize: none;
 }
 
 .cart-header h3,
@@ -91,7 +110,7 @@
   cursor: pointer;
   color: var(--primary-blue-color);
   font-size: 1rem;
-  margin-top: .5rem;
+  margin-top: 1rem;
 }
 
 /* Para pantallas de escritorio */
@@ -109,7 +128,7 @@
   }
 
   .cart-summary {
-    width: 25%;
+    width: 30%;
     display: flex;
     flex-direction: column;
   }
