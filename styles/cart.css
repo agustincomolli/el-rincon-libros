@@ -81,6 +81,10 @@
   border-radius: 2px;
 }
 
+.promotional-code-text {
+  width: 180px;
+}
+
 .promotional-code-button {
   background-color: white;
   color: var(--primary-blue-color);
