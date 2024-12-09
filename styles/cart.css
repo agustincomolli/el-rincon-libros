@@ -81,6 +81,10 @@
   margin-bottom: 1.5rem;
 }
 
+.hidden {
+  display: none;
+}
+
 .promotional-code-text,
 .cart-note {
   margin-top: .5rem;

@@ -1,4 +1,21 @@
+const priceFormatter = formatCurrency();
+
 document.addEventListener("DOMContentLoaded", () => {
+    const promotionalCodeButton = document.querySelector("#promotional-code-button");
+    const addNodeButton = document.querySelector("#add-note-button");
+
+    // Mostrar u ocultar el cuadro de ingreso de códigos promocionales
+    promotionalCodeButton.addEventListener("click", () => {
+        const promotionalCode = document.querySelector(".promotional-code");
+        promotionalCode.classList.toggle("hidden");
+    });
+
+    // Mostrar u ocultar el cuadro de ingreso de notas
+    addNodeButton.addEventListener("click", () => {
+        const cartNote = document.querySelector(".cart-note");
+        cartNote.classList.toggle("hidden");
+    });
+
     loadCart();
 });
 
@@ -20,13 +37,6 @@ function loadCart() {
         emptyCartMessage.style.display = "block";
         return;
     }
-
-    // Formateador de precios para Argentina
-    const priceFormatter = new Intl.NumberFormat('es-AR', {
-        style: 'currency',
-        currency: 'ARS',
-        minimumFractionDigits: 2,
-    });
 
     fetch("../data/books.json")
         .then(response => response.json())
@@ -53,9 +63,9 @@ function loadCart() {
                                 <span class="book-price">${priceFormatter.format(bookPrice)}</span>
                             </div>
                             <div class="book-quantity">
-                                <button class="book-quantity-button" title="Disminuir"><i class='bx bx-minus'></i></button>
+                                <button class="book-quantity-button" id="decrease" title="Disminuir"><i class='bx bx-minus'></i></button>
                                 <span class="book-quantity-value">${quantity}</span>
-                                <button class="book-quantity-button" title="Aumentar"><i class='bx bx-plus'></i></button>
+                                <button class="book-quantity-button" id="increase" title="Aumentar"><i class='bx bx-plus'></i></button>
                             </div>
                             <div class="book-total">
                                 <span class="book-total-price">${priceFormatter.format(totalPrice)}</span>
@@ -73,6 +83,8 @@ function loadCart() {
                     removeFromCart(button.dataset.bookId);
                 });
             });
+
+            addQuantityButtonsClickListeners();
         })
         .catch(error => console.error("Error al cargar los datos de los libros:", error));
 }
@@ -92,4 +104,74 @@ function removeFromCart(bookId) {
 
     // Recarga el carrito en la página
     loadCart();
+}
+
+/**
+ * Agrega el evento click a los botones de cantidad de cada libro en el carrito.
+ * Al hacer click en el botón de disminuir, si la cantidad actual es mayor a 1,
+ * disminuye la cantidad actual en 1 y actualiza el total de la fila.
+ * Al hacer click en el botón de aumentar, si la cantidad actual es menor a 10,
+ * aumenta la cantidad actual en 1 y actualiza el total de la fila.
+ */
+function addQuantityButtonsClickListeners() {
+    document.querySelectorAll(".book-quantity-button").forEach(button => {
+        button.addEventListener("click", () => {
+            const quantityElement = button.closest('.book-details').querySelector('.book-quantity-value');
+            let currentQuantity = parseInt(quantityElement.textContent);
+
+            if (button.id === "decrease" && currentQuantity > 1) {
+                quantityElement.textContent = currentQuantity - 1;
+                updateCartItemTotal(button);
+            }
+
+            if (button.id === "increase" && currentQuantity < 10) {
+                quantityElement.textContent = currentQuantity + 1;
+                updateCartItemTotal(button);
+            }
+        });
+    });
+}
+
+/**
+ * Actualiza el total de cada fila del carrito de compras.
+ *
+ * Dado un botón de cantidad (ya sea de disminuir o aumentar),
+ * encuentra el contenedor de la fila del carrito que le corresponde
+ * y actualiza el total de la fila con el precio actual multiplicado
+ * por la nueva cantidad.
+ *
+ * @param {HTMLElement} button - Botón de cantidad que dispara el evento.
+ * @return {void}
+ */
+function updateCartItemTotal(button) {
+    const bookDetails = button.closest('.book-details');
+    const priceElement = bookDetails.querySelector('.book-price');
+    const quantityElement = bookDetails.querySelector('.book-quantity-value');
+    const totalPriceElement = bookDetails.querySelector('.book-total-price');
+
+    const price = parseFloat(
+        priceElement.textContent
+            .replace(/[^0-9,-]+/g, "")  // Elimina símbolos
+            .replace(",", ".")          // Cambia coma por punto
+    );
+    const quantity = parseInt(quantityElement.textContent);
+    const totalPrice = price * quantity;
+
+    totalPriceElement.textContent = priceFormatter.format(totalPrice);
+}
+
+/**
+ * Crea un formateador de números para moneda.
+ *
+ * @param {string} [locale='es-AR'] - Código de idioma para el formateador.
+ * @param {string} [currency='ARS'] - Código de moneda para el formateador.
+ * @param {number} [minDecimals=2] - Número mínimo de decimales para el formateador.
+ * @return {Intl.NumberFormat} - Formateador de números para moneda.
+ */
+function formatCurrency(locale = 'es-AR', currency = 'ARS', minDecimals = 2) {
+    return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: minDecimals,
+    });
 }

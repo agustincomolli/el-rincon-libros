@@ -23,11 +23,19 @@ function loadData() {
         .then(data => {
             const book = data.find(book => book.id === bookId);
             if (book) {
+                
+                // Formateador de precios para Argentina
+                const priceFormatter = new Intl.NumberFormat('es-AR', {
+                    style: 'currency',
+                    currency: 'ARS',
+                    minimumFractionDigits: 2,
+                });
+
                 // Carga los datos del libro en la página
                 document.querySelector("#book-title").textContent = book.title;
                 document.querySelector(".book-author").textContent = book.author;
                 document.querySelector(".book-description").textContent = book.description;
-                document.querySelector(".book-price").textContent = book.price;
+                document.querySelector(".book-price").textContent = priceFormatter.format(book.price);
                 document.querySelector(".book-image").setAttribute("src", `../assets/images/${book.cover}`);
                 document.querySelector(".book-image").setAttribute("alt", `Portada de ${book.title}`);
                 document.querySelector(".book-image").setAttribute("title", `Portada de ${book.title}`);

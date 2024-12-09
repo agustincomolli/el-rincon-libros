@@ -71,9 +71,9 @@
                   <span class="book-price">$ 0,00</span>
                 </div>
                 <div class="book-quantity">
-                  <button class="book-quantity-button" title="Disminuir"><i class='bx bx-minus'></i></button>
+                  <button class="book-quantity-button" id="decrease" title="Disminuir"><i class='bx bx-minus'></i></button>
                   <span class="book-quantity-value">1</span>
-                  <button class="book-quantity-button" title="Aumentar"><i class='bx bx-plus'></i></button>
+                  <button class="book-quantity-button" id="increase" title="Aumentar"><i class='bx bx-plus'></i></button>
                 </div>
                 <div class="book-total">
                   <span class="book-total-price">$ 0,00</span>
@@ -88,7 +88,7 @@
             <span><i class='bx bx-purchase-tag bx-rotate-90'></i></span>
             <span>Ingresar código promocional</span>
           </button>
-          <div class="promotional-code">
+          <div class="promotional-code hidden">
             <input type="text" class="promotional-code-text" name="promotional-code" id="promotional-code"
               autocomplete="on" placeholder="Código promocional">
             <button class="promotional-code-button" id="apply-promotional-code">Aplicar</button>
@@ -97,7 +97,7 @@
             <span><i class='bx bx-file'></i></span>
             <span>Agregar una nota</span>
           </button>
-          <textarea class="cart-note" name="cart-note" id="cart-note" placeholder="P. ej., Dejar el pedido en la puerta"
+          <textarea class="cart-note hidden" name="cart-note" id="cart-note" placeholder="P. ej., Dejar el pedido en la puerta"
             maxlength="250" rows="3"></textarea>
         </footer>
       </article>
