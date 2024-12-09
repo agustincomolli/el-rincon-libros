@@ -34,6 +34,9 @@ function loadData(page = 1) {
                 const book = data[i];
                 const bookElement = createBookElement(book);
                 booksContainer.appendChild(bookElement);
+
+                const addToCartButton = bookElement.querySelector(".add-to-cart-button");
+                addToCartButton.addEventListener("click", addToCart(book.id));
             }
 
             updatePagination(page, Math.ceil(data.length / booksPerPage));
@@ -67,9 +70,16 @@ function createBookElement(book) {
     coverElement.innerHTML = `<img class="book-cover" src="../assets/images/${book.cover}" alt="Portada de ${book.title}" height="300px" title="${book.title}">`;
     bookElement.appendChild(coverElement);
 
+    // Formateador de precios para Argentina
+    const priceFormatter = new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 2,
+    });
+
     const priceElement = document.createElement("p");
     priceElement.className = "book-price";
-    priceElement.textContent = book.price;
+    priceElement.textContent = priceFormatter.format(book.price);
     bookElement.appendChild(priceElement);
 
     const addToCartElement = document.createElement("a");
@@ -77,6 +87,7 @@ function createBookElement(book) {
     addToCartElement.href = "#";
     addToCartElement.title = "Agregar al carrito";
     addToCartElement.innerHTML = "<i class='bx bx-cart-add'></i>";
+    addToCartElement.dataset.bookId = book.id;
     bookElement.appendChild(addToCartElement);
 
     return bookElement;
@@ -141,4 +152,79 @@ function search() {
             window.location.href = `./search-results.html?query=${encodeURIComponent(searchQuery)}`;
         })
         .catch(error => console.error("Error cargando los libros:", error));
+}
+
+/**
+ * Agrega un libro al carrito de compras.
+ *
+ * @param {number} bookId - Identificador del libro
+ * @returns {function} - Función que se encarga de agregar el libro al carrito
+ *
+ * La función devuelta guarda el libro en el carrito en localStorage.
+ */
+function addToCart(bookId) {
+    if (!bookId) return null;
+
+    return () => {
+        const cart = new Map(JSON.parse(localStorage.getItem("cart") || "[]"));
+        const currentQuantity = cart.get(bookId) || 0;
+
+        if (currentQuantity < 10) {  // Límite de cantidad
+            cart.set(bookId, currentQuantity + 1);
+            // Convertir el Map a un array para poder guardarlo en localStorage
+            // y convertirlo a JSON
+            localStorage.setItem("cart", JSON.stringify([...cart]));
+            showNotification("Libro agregado al carrito");
+        }
+    };
+}
+
+/**
+ * Muestra un mensaje emergente para informar al usuario
+ * que el libro ha sido agregado al carrito.
+ *
+ * @param {string} message - Mensaje a mostrar
+ *
+ * La función crea un elemento <div> y lo agrega al body
+ * con el mensaje pasado como parámetro. Luego,
+ * aplica una animación de aparición y desaparición
+ * para mostrar y ocultar el mensaje.
+ */
+function showNotification(message) {
+    // Crear el contenedor del modal
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s;
+    `;
+
+    // Agregar el mensaje al modal
+    modal.textContent = message;
+
+    // Agregar el modal al body
+    document.body.appendChild(modal);
+
+    // Animación de aparición
+    setTimeout(() => {
+        modal.style.opacity = '1';
+    }, 10);
+
+    // Desaparecer después de 3 segundos
+    setTimeout(() => {
+        modal.style.opacity = '0';
+        // Eliminar de DOM después de la animación
+        setTimeout(() => {
+            document.body.removeChild(modal);
+        }, 300);
+    }, 3000);
 }

@@ -1,3 +1,7 @@
+.empty-cart-message {
+  display: none;
+}
+
 .cart {
   margin-top: 1.5rem;
   color: var(--primary-blue-color);
@@ -38,6 +42,11 @@
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
+}
+
+.book-title {
+  width: 140px;
+  text-align: center;
 }
 
 .book-quantity {
@@ -204,6 +213,15 @@
     gap: 0;
     align-items: start;
   }
+
+  .book-info {
+    align-items: start;
+  }
+
+  .book-title {
+    text-align: left;
+  }
+
 
   .cart-items {
     width: 50%;
