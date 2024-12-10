@@ -36,7 +36,8 @@
 h1,
 h2,
 h3 {
-  font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+  /* font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif; */
+  font-family: 'Bogart', Georgia, 'Times New Roman', Times, serif;
 }
 
 h1 {
@@ -98,6 +99,7 @@ p {
 
 .brand-heading {
   font-size: 1.3rem;
+  letter-spacing: .08rem;
   width: auto;
   word-wrap: break-word;
   /* Permite romper palabras largas */

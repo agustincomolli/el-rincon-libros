@@ -20,6 +20,15 @@
     url('../assets/fonts/merriweather.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: "Bogart";
+  src: 
+    local("Bogart"),
+    url('../assets/fonts/bogart.woff2') format('woff2'),
+    url('../assets/fonts/bogart.woff') format('woff'),
+    url('../assets/fonts/bogart.ttf') format('truetype');
+}
+
 /* Variables globales */
 :root {
   --primary-blue-color: #0E345A;
