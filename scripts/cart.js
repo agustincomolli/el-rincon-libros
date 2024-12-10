@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
  *
  * @return {void}
  */
-function loadCart() {
+async function loadCart() {
     const booksContainer = document.querySelector(".books");
     const cartSection = document.querySelector(".cart");
     const emptyCartMessage = document.querySelector(".empty-cart-message");
@@ -38,55 +38,58 @@ function loadCart() {
         return;
     }
 
-    fetch("../data/books.json")
-        .then(response => response.json())
-        .then(books => {
-            booksContainer.innerHTML = "";
-            let totalCart = 0;
+    try {
+        const response = await fetch("../data/books.json");
+        const books = await response.json();
+        
+        booksContainer.innerHTML = "";
+        let totalCart = 0;
 
-            cartData.forEach(([bookId, quantity]) => {
-                const book = books.find(b => b.id.toString() === bookId.toString());
-                if (book) {
-                    const bookPrice = book.price;
-                    const totalPrice = bookPrice * quantity;
-                    totalCart += totalPrice;
+        cartData.forEach(([bookId, quantity]) => {
+            const book = books.find(b => b.id.toString() === bookId.toString());
+            if (book) {
+                const bookPrice = book.price;
+                const totalPrice = bookPrice * quantity;
+                totalCart += totalPrice;
 
-                    const cartItem = document.createElement("li");
-                    cartItem.classList.add("book");
-                    cartItem.innerHTML = `
-                        <div class="book-image">
-                            <img src="../assets/images/${book.cover}" height="100px" alt="${book.title}">
+                const cartItem = document.createElement("li");
+                cartItem.classList.add("book");
+                cartItem.innerHTML = `
+                    <div class="book-image">
+                        <img src="../assets/images/${book.cover}" height="100px" alt="${book.title}">
+                    </div>
+                    <div class="book-details">
+                        <div class="book-info">
+                            <span class="book-title">${book.title}</span>
+                            <span class="book-price">${priceFormatter.format(bookPrice)}</span>
                         </div>
-                        <div class="book-details">
-                            <div class="book-info">
-                                <span class="book-title">${book.title}</span>
-                                <span class="book-price">${priceFormatter.format(bookPrice)}</span>
-                            </div>
-                            <div class="book-quantity">
-                                <button class="book-quantity-button" id="decrease" title="Disminuir"><i class='bx bx-minus'></i></button>
-                                <span class="book-quantity-value">${quantity}</span>
-                                <button class="book-quantity-button" id="increase" title="Aumentar"><i class='bx bx-plus'></i></button>
-                            </div>
-                            <div class="book-total">
-                                <span class="book-total-price">${priceFormatter.format(totalPrice)}</span>
-                            </div>
-                            <button class="book-remove-button" data-book-id="${bookId}" title="Eliminar"><i class='bx bx-trash'></i></button>
+                        <div class="book-quantity">
+                            <button class="book-quantity-button" id="decrease" title="Disminuir"><i class='bx bx-minus'></i></button>
+                            <span class="book-quantity-value">${quantity}</span>
+                            <button class="book-quantity-button" id="increase" title="Aumentar"><i class='bx bx-plus'></i></button>
                         </div>
-                    `;
-                    booksContainer.appendChild(cartItem);
-                }
-            })
-
-            // Recorrer los botones de eliminación y asignarles el evento.
-            document.querySelectorAll(".book-remove-button").forEach(button => {
-                button.addEventListener("click", () => {
-                    removeFromCart(button.dataset.bookId);
-                });
-            });
-
-            addQuantityButtonsClickListeners();
+                        <div class="book-total">
+                            <span class="book-total-price">${priceFormatter.format(totalPrice)}</span>
+                        </div>
+                        <button class="book-remove-button" data-book-id="${bookId}" title="Eliminar"><i class='bx bx-trash'></i></button>
+                    </div>
+                `;
+                booksContainer.appendChild(cartItem);
+            }
         })
-        .catch(error => console.error("Error al cargar los datos de los libros:", error));
+
+        // Recorrer los botones de eliminación y asignarles el evento.
+        document.querySelectorAll(".book-remove-button").forEach(button => {
+            button.addEventListener("click", () => {
+                removeFromCart(button.dataset.bookId);
+            });
+        });
+
+        addQuantityButtonsClickListeners();
+
+    } catch (error) {
+        console.error("Error al cargar los datos de los libros:", error);
+    }
 }
 
 /**

@@ -1,3 +1,5 @@
+const priceFormatter = formatCurrency();
+
 document.addEventListener("DOMContentLoaded", function () {
     loadData();
 });
@@ -10,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
  *
  * @returns {undefined}
  */
-function loadData() {
+async function loadData() {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get("id");
     const bookDetails = document.querySelector(".book-details");
@@ -18,40 +20,32 @@ function loadData() {
     // Mostrar el detalle del libro.
     bookDetails.style.display = "flex";
 
-    fetch("/data/books.json")
-        .then(response => response.json())
-        .then(data => {
-            const book = data.find(book => book.id === bookId);
-            if (book) {
-                
-                // Formateador de precios para Argentina
-                const priceFormatter = new Intl.NumberFormat('es-AR', {
-                    style: 'currency',
-                    currency: 'ARS',
-                    minimumFractionDigits: 2,
-                });
-
-                // Carga los datos del libro en la página
-                document.querySelector("#book-title").textContent = book.title;
-                document.querySelector(".book-author").textContent = book.author;
-                document.querySelector(".book-description").textContent = book.description;
-                document.querySelector(".book-price").textContent = priceFormatter.format(book.price);
-                document.querySelector(".book-image").setAttribute("src", `../assets/images/${book.cover}`);
-                document.querySelector(".book-image").setAttribute("alt", `Portada de ${book.title}`);
-                document.querySelector(".book-image").setAttribute("title", `Portada de ${book.title}`);
-                document.querySelector("#book-genre").textContent = `Género:  ${book.genre}`;
-                document.querySelector("#book-year").textContent = `Publicado en: ${book.publicationDate}`;
-                document.querySelector("#book-pages").textContent = `Páginas: ${book.pages}`;
-                document.querySelector("#book-publisher").textContent = `Editorial: ${book.publisher}`;
-                document.querySelector("#book-isbn").textContent = `ISBN: ${book.isbn}`;
-                document.querySelector(".add-to-cart-button").addEventListener("click", addToCart(book.id));
-            } else {
-                // Libro no encontrado
-                console.error("Libro no encontrado");
-                window.location.href = "../pages/error-404.html";
-            }
-        })
-        .catch(error => console.error("Error:", error));
+    try {
+        const response = await fetch("/data/books.json");
+        const data = await response.json();
+        const book = data.find(book => book.id === bookId);
+        if (book) {
+            // Carga los datos del libro en la página
+            document.querySelector("#book-title").textContent = book.title;
+            document.querySelector(".book-author").textContent = book.author;
+            document.querySelector(".book-description").textContent = book.description;
+            document.querySelector(".book-price").textContent = priceFormatter.format(book.price);
+            document.querySelector(".book-image").setAttribute("src", `../assets/images/${book.cover}`);
+            document.querySelector(".book-image").setAttribute("alt", `Portada de ${book.title}`);
+            document.querySelector(".book-image").setAttribute("title", `Portada de ${book.title}`);
+            document.querySelector("#book-genre").textContent = `Género:  ${book.genre}`;
+            document.querySelector("#book-year").textContent = `Publicado en: ${book.publicationDate}`;
+            document.querySelector("#book-pages").textContent = `Páginas: ${book.pages}`;
+            document.querySelector("#book-publisher").textContent = `Editorial: ${book.publisher}`;
+            document.querySelector("#book-isbn").textContent = `ISBN: ${book.isbn}`;
+            document.querySelector(".add-to-cart-button").addEventListener("click", addToCart(book.id));
+        } else {
+            console.error("Libro no encontrado");
+            window.location.href = "../pages/error-404.html";
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
 };
 
 
@@ -128,4 +122,20 @@ function showNotification(message) {
             document.body.removeChild(modal);
         }, 300);
     }, 3000);
+}
+
+/**
+ * Crea un formateador de números para moneda.
+ *
+ * @param {string} [locale='es-AR'] - Código de idioma para el formateador.
+ * @param {string} [currency='ARS'] - Código de moneda para el formateador.
+ * @param {number} [minDecimals=2] - Número mínimo de decimales para el formateador.
+ * @return {Intl.NumberFormat} - Formateador de números para moneda.
+ */
+function formatCurrency(locale = 'es-AR', currency = 'ARS', minDecimals = 2) {
+    return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: minDecimals,
+    });
 }

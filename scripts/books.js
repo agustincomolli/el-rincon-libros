@@ -1,3 +1,4 @@
+const priceFormatter = formatCurrency();
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search-button");
 
@@ -19,29 +20,31 @@ document.addEventListener("DOMContentLoaded", () => {
  *
  * @returns {undefined}
  */
-function loadData(page = 1) {
+async function loadData(page = 1) {
     const booksPerPage = 15;
     const startIndex = (page - 1) * booksPerPage;
     const endIndex = startIndex + booksPerPage;
 
-    fetch("/data/books.json")
-        .then(response => response.json())
-        .then(data => {
-            const booksContainer = document.querySelector(".books-container");
-            booksContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar los nuevos libros
+    try {
+        const response = await fetch("/data/books.json");
+        const data = await response.json();
 
-            for (let i = startIndex; i < endIndex && i < data.length; i++) {
-                const book = data[i];
-                const bookElement = createBookElement(book);
-                booksContainer.appendChild(bookElement);
+        const booksContainer = document.querySelector(".books-container");
+        booksContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar los nuevos libros
 
-                const addToCartButton = bookElement.querySelector(".add-to-cart-button");
-                addToCartButton.addEventListener("click", addToCart(book.id));
-            }
+        for (let i = startIndex; i < endIndex && i < data.length; i++) {
+            const book = data[i];
+            const bookElement = createBookElement(book);
+            booksContainer.appendChild(bookElement);
 
-            updatePagination(page, Math.ceil(data.length / booksPerPage));
-        })
-        .catch(error => console.error("Error:", error));
+            const addToCartButton = bookElement.querySelector(".add-to-cart-button");
+            addToCartButton.addEventListener("click", addToCart(book.id));
+        }
+
+        updatePagination(page, Math.ceil(data.length / booksPerPage));
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
 
 /**
@@ -69,13 +72,6 @@ function createBookElement(book) {
     coverElement.dataset.bookId = book.id;
     coverElement.innerHTML = `<img class="book-cover" src="../assets/images/${book.cover}" alt="Portada de ${book.title}" height="300px" title="${book.title}">`;
     bookElement.appendChild(coverElement);
-
-    // Formateador de precios para Argentina
-    const priceFormatter = new Intl.NumberFormat('es-AR', {
-        style: 'currency',
-        currency: 'ARS',
-        minimumFractionDigits: 2,
-    });
 
     const priceElement = document.createElement("p");
     priceElement.className = "book-price";
@@ -132,28 +128,29 @@ function updatePagination(currentPage, totalPages) {
  *
  * @returns {undefined}
  */
-function search() {
+async function search() {
     const searchQuery = document.querySelector("#search").value.toLowerCase();
 
-    fetch("../data/books.json")
-        .then(response => response.json())
-        .then(books => {
-            // Filtrar los libros que coincidan con el título, autor o género.
-            const results = books.filter(book =>
-                book.title.toLowerCase().includes(searchQuery) ||
-                book.author.toLowerCase().includes(searchQuery) ||
-                book.genre.toLowerCase().includes(searchQuery)
-            );
+    try {
+        const response = await fetch("../data/books.json");
+        const books = await response.json();
 
-            // Guardar los resultados en localStorage para pasarlos entre páginas.
-            localStorage.setItem("searchResults", JSON.stringify(results));
+        // Filtrar los libros que coincidan con el título, autor o género.
+        const results = books.filter(book =>
+            book.title.toLowerCase().includes(searchQuery) ||
+            book.author.toLowerCase().includes(searchQuery) ||
+            book.genre.toLowerCase().includes(searchQuery)
+        );
 
-            // Redirigir con el término buscado en la URL
-            window.location.href = `./search-results.html?query=${encodeURIComponent(searchQuery)}`;
-        })
-        .catch(error => console.error("Error cargando los libros:", error));
+        // Guardar los resultados en localStorage para pasarlos entre páginas.
+        localStorage.setItem("searchResults", JSON.stringify(results));
+
+        // Redirigir con el término buscado en la URL
+        window.location.href = `./search-results.html?query=${encodeURIComponent(searchQuery)}`;
+    } catch (error) {
+        console.error("Error cargando los libros:", error);
+    }
 }
-
 /**
  * Agrega un libro al carrito de compras.
  *
@@ -227,4 +224,20 @@ function showNotification(message) {
             document.body.removeChild(modal);
         }, 300);
     }, 3000);
+}
+
+/**
+ * Crea un formateador de números para moneda.
+ *
+ * @param {string} [locale='es-AR'] - Código de idioma para el formateador.
+ * @param {string} [currency='ARS'] - Código de moneda para el formateador.
+ * @param {number} [minDecimals=2] - Número mínimo de decimales para el formateador.
+ * @return {Intl.NumberFormat} - Formateador de números para moneda.
+ */
+function formatCurrency(locale = 'es-AR', currency = 'ARS', minDecimals = 2) {
+    return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: minDecimals,
+    });
 }
