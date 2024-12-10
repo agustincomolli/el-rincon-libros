@@ -1,3 +1,4 @@
+import { formatCurrency } from "./general.js";
 const priceFormatter = formatCurrency();
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search-button");
@@ -224,20 +225,4 @@ function showNotification(message) {
             document.body.removeChild(modal);
         }, 300);
     }, 3000);
-}
-
-/**
- * Crea un formateador de números para moneda.
- *
- * @param {string} [locale='es-AR'] - Código de idioma para el formateador.
- * @param {string} [currency='ARS'] - Código de moneda para el formateador.
- * @param {number} [minDecimals=2] - Número mínimo de decimales para el formateador.
- * @return {Intl.NumberFormat} - Formateador de números para moneda.
- */
-function formatCurrency(locale = 'es-AR', currency = 'ARS', minDecimals = 2) {
-    return new Intl.NumberFormat(locale, {
-        style: 'currency',
-        currency: currency,
-        minimumFractionDigits: minDecimals,
-    });
 }
