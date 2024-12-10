@@ -4,6 +4,11 @@ const priceFormatter = formatCurrency();
 document.addEventListener("DOMContentLoaded", () => {
     const promotionalCodeButton = document.querySelector("#promotional-code-button");
     const addNodeButton = document.querySelector("#add-note-button");
+    const calculateShippingBtn = document.querySelector("#calculate-shipping");
+    const shippingModal = document.getElementById('shipping-modal');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const provincesSelect = document.getElementById('provinces-select');
+    const updateLocationBtn = document.getElementById('update-location-btn');
 
     // Mostrar u ocultar el cuadro de ingreso de códigos promocionales
     promotionalCodeButton.addEventListener("click", () => {
@@ -15,6 +20,23 @@ document.addEventListener("DOMContentLoaded", () => {
     addNodeButton.addEventListener("click", () => {
         const cartNote = document.querySelector(".cart-note");
         cartNote.classList.toggle("hidden");
+    });
+
+    calculateShippingBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevenir comportamiento de enlace
+        shippingModal.style.display = 'block';
+    });
+
+    // Cerrar modal
+    closeModalBtn.addEventListener('click', () => {
+        shippingModal.style.display = 'none';
+    });
+
+    // Cerrar modal si se hace clic fuera de él
+    window.addEventListener('click', (event) => {
+        if (event.target === shippingModal) {
+            shippingModal.style.display = 'none';
+        }
     });
 
     loadCart();
@@ -41,17 +63,18 @@ async function loadCart() {
 
     try {
         const response = await fetch("../data/books.json");
-        const books = await response.json();
-        
+        const data = await response.json();
+
         booksContainer.innerHTML = "";
         let totalCart = 0;
+        let subtotalCart = 0;
 
         cartData.forEach(([bookId, quantity]) => {
-            const book = books.find(b => b.id.toString() === bookId.toString());
+            const book = data.find(b => b.id.toString() === bookId.toString());
             if (book) {
                 const bookPrice = book.price;
                 const totalPrice = bookPrice * quantity;
-                totalCart += totalPrice;
+                subtotalCart += totalPrice;
 
                 const cartItem = document.createElement("li");
                 cartItem.classList.add("book");
@@ -87,6 +110,8 @@ async function loadCart() {
         });
 
         addQuantityButtonsClickListeners();
+
+        updateSubtotal()
 
     } catch (error) {
         console.error("Error al cargar los datos de los libros:", error);
@@ -162,4 +187,33 @@ function updateCartItemTotal(button) {
     const totalPrice = price * quantity;
 
     totalPriceElement.textContent = priceFormatter.format(totalPrice);
+
+    updateSubtotal()
+}
+
+/**
+ * Actualiza el subtotal del carrito de compras.
+ *
+ * Busca todos los libros en el carrito, encuentra el total de cada uno
+ * y lo suma al subtotal. Luego, actualiza el elemento de la interfaz
+ * que muestra el subtotal con el nuevo valor.
+ *
+ * @return {void}
+ */
+function updateSubtotal() {
+    const subtotalElement = document.querySelector(".cart-subtotal dd");
+    const books = document.querySelectorAll(".book");
+    let subtotal = 0;
+
+    books.forEach(book => {
+        const bookTotalElement = book.querySelector(".book-total-price");
+        const bookTotal = parseFloat(
+            bookTotalElement.textContent
+                .replace(/[^0-9,-]+/g, "")  // Elimina símbolos
+                .replace(",", ".")          // Cambia coma por punto
+        );
+        subtotal += bookTotal;
+    });
+
+    subtotalElement.textContent = `${priceFormatter.format(subtotal)}`;
 }

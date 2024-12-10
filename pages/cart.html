@@ -97,8 +97,8 @@
             <span><i class='bx bx-file'></i></span>
             <span>Agregar una nota</span>
           </button>
-          <textarea class="cart-note hidden" name="cart-note" id="cart-note" placeholder="P. ej., Dejar el pedido en la puerta"
-            maxlength="250" rows="3"></textarea>
+          <textarea class="cart-note hidden" name="cart-note" id="cart-note"
+            placeholder="P. ej., Dejar el pedido en la puerta" maxlength="250" rows="3"></textarea>
         </footer>
       </article>
 
@@ -113,6 +113,22 @@
           </dl>
           <dl>
             <button id="calculate-shipping">Calcular envío</button>
+            <!-- Modal de Envío -->
+            <div id="shipping-modal" class="modal">
+              <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Selecciona ubicación</h2>
+                <label for="provinces-select">Provincia</label>
+                <select id="provinces-select">
+                  <option value="">Selecciona una provincia</option>
+                </select>
+                <button id="update-location-btn">Actualizar</button>
+              </div>
+            </div>
+          </dl>
+          <dl>
+            <dt>Envío</dt>
+            <dd>$ 0,00</dd>
           </dl>
         </main>
         <footer class="cart-total">
