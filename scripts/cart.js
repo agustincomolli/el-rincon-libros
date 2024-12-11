@@ -268,7 +268,7 @@ function updateLocation() {
     const provincesSelect = document.getElementById("provinces-select");
     const selectedProvince = provincesSelect.options[provincesSelect.selectedIndex].text;
     if (selectedProvince && selectedProvince !== "Selecciona una provincia") {
-        // Aquí podrías calcular el costo de envío según la provincia
+        // Calcular el costo de envío según la provincia
         const shipping = calculateShipping(selectedProvince);
 
         // Actualizar elemento de envío en el resumen del pedido
