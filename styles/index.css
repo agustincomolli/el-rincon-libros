@@ -89,10 +89,12 @@
   text-transform: uppercase;
   margin-block: 0.5rem;
   word-wrap: break-word;
+  font-weight: normal;
 }
 
 .book-author {
   margin-block: 0.5rem;
+  font-weight: normal;
 }
 
 .book-cover {

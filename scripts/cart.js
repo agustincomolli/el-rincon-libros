@@ -1,14 +1,13 @@
 import { formatCurrency } from "./general.js";
 const priceFormatter = formatCurrency();
+const shippingModal = document.getElementById("shipping-modal");
 
 document.addEventListener("DOMContentLoaded", () => {
     const promotionalCodeButton = document.querySelector("#promotional-code-button");
     const addNodeButton = document.querySelector("#add-note-button");
     const calculateShippingBtn = document.querySelector("#calculate-shipping");
-    const shippingModal = document.getElementById('shipping-modal');
-    const closeModalBtn = document.querySelector('.close-modal');
-    const provincesSelect = document.getElementById('provinces-select');
-    const updateLocationBtn = document.getElementById('update-location-btn');
+    const closeModalBtn = document.querySelector(".close-modal");
+    const updateLocationBtn = document.getElementById("update-location-btn");
 
     // Mostrar u ocultar el cuadro de ingreso de códigos promocionales
     promotionalCodeButton.addEventListener("click", () => {
@@ -22,22 +21,26 @@ document.addEventListener("DOMContentLoaded", () => {
         cartNote.classList.toggle("hidden");
     });
 
-    calculateShippingBtn.addEventListener('click', (e) => {
+    calculateShippingBtn.addEventListener("click", (e) => {
         e.preventDefault(); // Prevenir comportamiento de enlace
-        shippingModal.style.display = 'block';
+        shippingModal.style.display = "block";
     });
 
     // Cerrar modal
-    closeModalBtn.addEventListener('click', () => {
-        shippingModal.style.display = 'none';
+    closeModalBtn.addEventListener("click", () => {
+        shippingModal.style.display = "none";
     });
 
     // Cerrar modal si se hace clic fuera de él
-    window.addEventListener('click', (event) => {
+    window.addEventListener("click", (event) => {
         if (event.target === shippingModal) {
-            shippingModal.style.display = 'none';
+            shippingModal.style.display = "none";
         }
     });
+
+    updateLocationBtn.addEventListener("click", updateLocation);
+
+    loadProvinces();
 
     loadCart();
 });
@@ -88,14 +91,14 @@ async function loadCart() {
                             <span class="book-price">${priceFormatter.format(bookPrice)}</span>
                         </div>
                         <div class="book-quantity">
-                            <button class="book-quantity-button" id="decrease" title="Disminuir"><i class='bx bx-minus'></i></button>
+                            <button class="book-quantity-button" id="decrease" title="Disminuir"><i class="bx bx-minus"></i></button>
                             <span class="book-quantity-value">${quantity}</span>
-                            <button class="book-quantity-button" id="increase" title="Aumentar"><i class='bx bx-plus'></i></button>
+                            <button class="book-quantity-button" id="increase" title="Aumentar"><i class="bx bx-plus"></i></button>
                         </div>
                         <div class="book-total">
                             <span class="book-total-price">${priceFormatter.format(totalPrice)}</span>
                         </div>
-                        <button class="book-remove-button" data-book-id="${bookId}" title="Eliminar"><i class='bx bx-trash'></i></button>
+                        <button class="book-remove-button" data-book-id="${bookId}" title="Eliminar"><i class="bx bx-trash"></i></button>
                     </div>
                 `;
                 booksContainer.appendChild(cartItem);
@@ -145,7 +148,7 @@ function removeFromCart(bookId) {
 function addQuantityButtonsClickListeners() {
     document.querySelectorAll(".book-quantity-button").forEach(button => {
         button.addEventListener("click", () => {
-            const quantityElement = button.closest('.book-details').querySelector('.book-quantity-value');
+            const quantityElement = button.closest(".book-details").querySelector(".book-quantity-value");
             let currentQuantity = parseInt(quantityElement.textContent);
 
             if (button.id === "decrease" && currentQuantity > 1) {
@@ -173,10 +176,10 @@ function addQuantityButtonsClickListeners() {
  * @return {void}
  */
 function updateCartItemTotal(button) {
-    const bookDetails = button.closest('.book-details');
-    const priceElement = bookDetails.querySelector('.book-price');
-    const quantityElement = bookDetails.querySelector('.book-quantity-value');
-    const totalPriceElement = bookDetails.querySelector('.book-total-price');
+    const bookDetails = button.closest(".book-details");
+    const priceElement = bookDetails.querySelector(".book-price");
+    const quantityElement = bookDetails.querySelector(".book-quantity-value");
+    const totalPriceElement = bookDetails.querySelector(".book-total-price");
 
     const price = parseFloat(
         priceElement.textContent
@@ -216,4 +219,124 @@ function updateSubtotal() {
     });
 
     subtotalElement.textContent = `${priceFormatter.format(subtotal)}`;
+    
+    // Recalcular total
+    updateTotal();
+}
+
+/**
+ * Carga las provincias de Argentina en un select desde la API
+ * de datos.gob.ar. Ordena las provincias alfabéticamente y
+ * las agrega al select.
+ *
+ * @return {void}
+ */
+async function loadProvinces() {
+    try {
+        const provincesSelect = document.getElementById("provinces-select");
+        const response = await fetch("http://apis.datos.gob.ar/georef/api/provincias");
+        const data = await response.json();
+
+        // Ordenar provincias alfabéticamente
+        const sortedProvinces = data.provincias.sort((a, b) =>
+            a.nombre.localeCompare(b.nombre)
+        );
+
+        // Limpiar select existente
+        provincesSelect.innerHTML = "<option value=''>Selecciona una provincia</option>";
+
+        // Llenar el select con provincias
+        sortedProvinces.forEach(provincia => {
+            const option = document.createElement("option");
+            option.value = provincia.id;
+            option.textContent = provincia.nombre;
+            provincesSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar provincias:", error);
+        provincesSelect.innerHTML = "<option>Error al cargar provincias</option>";
+    }
+}
+
+/**
+ * Actualiza el costo del envío y el total del pedido en función de la provincia
+ * seleccionada en el select.
+ *
+ * @return {void}
+ */
+function updateLocation() {
+    const provincesSelect = document.getElementById("provinces-select");
+    const selectedProvince = provincesSelect.options[provincesSelect.selectedIndex].text;
+    if (selectedProvince && selectedProvince !== "Selecciona una provincia") {
+        // Aquí podrías calcular el costo de envío según la provincia
+        const shipping = calculateShipping(selectedProvince);
+
+        // Actualizar elemento de envío en el resumen del pedido
+        const sendElement = document.querySelector(".cart-shipping-value");
+        if (sendElement) {
+            sendElement.textContent = priceFormatter.format(shipping);
+        }
+
+        // Recalcular total
+        updateTotal(shipping);
+
+        shippingModal.style.display = "none";
+    } else {
+        const alertElement = document.querySelector(".alert");
+        alertElement.classList.remove("hidden");
+    }
+}
+
+/**
+ * Calcula el costo de envío según la provincia seleccionada.
+ *
+ * @param {string} provincia - Nombre de la provincia
+ * @return {number} Costo de envío
+ */
+function calculateShipping(province) {
+    // Lógica de cálculo de envío. $ 6.000 le puse de ejemplo.
+    const baseRate = 6000;
+    const factors = {
+        "Buenos Aires": 1.2,
+        "Ciudad Autónoma de Buenos Aires": 1,
+        "Entre Ríos": 1.3,
+        "Santa Fe": 1.3,
+        "La Pampa": 1.3,
+        "Córdoba": 1.4,
+        "Corrientes": 1.4,
+        // Agregar más provincias con sus factores
+    };
+
+    return baseRate * (factors[province] || 1.5);
+}
+
+/**
+ * Actualiza el total del pedido en la interfaz de usuario.
+ *
+ * @return {void}
+ */
+function updateTotal() {
+    const subtotalElement = document.querySelector(".cart-subtotal-value");
+    const shippingElement = document.querySelector(".cart-shipping-value");
+    const totalElement = document.querySelector(".total-value");
+
+    const subtotal = parseFloat(
+        subtotalElement.textContent
+            .replace(/[^0-9,-]+/g, "")  // Elimina símbolos
+            .replace(",", ".")          // Cambia coma por punto
+
+    );
+
+    const shipping = parseFloat(
+        shippingElement.textContent
+            .replace(/[^0-9,-]+/g, "")  // Elimina símbolos
+            .replace(",", ".")          // Cambia coma por punto
+
+    );
+
+    const total = subtotal + shipping;
+
+    if (totalElement) {
+        totalElement.textContent = priceFormatter.format(total);
+    }
 }

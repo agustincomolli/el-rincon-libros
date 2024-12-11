@@ -14,6 +14,14 @@ La Librería en línea es un proyecto que busca proporcionar un espacio virtual 
 *   **Página de inicio con información destacada**: La página de inicio de nuestra plataforma muestra información destacada sobre los libros más populares, los mejores vendedores y las últimas novedades.
 *   **Sección de reseñas**: Nuestra plataforma incluye una sección de reseñas, donde los usuarios pueden leer y escribir reseñas sobre los libros que han leído.
 *   **Enlaces a redes sociales**: Nuestra plataforma incluye enlaces a nuestras redes sociales, donde los usuarios pueden seguirnos y estar al tanto de las últimas novedades y promociones.
+*   **Carrito de compras con carga de provincias**: Nuestro carrito de compras utiliza una API pública para cargar los nombres de las provincias, lo que facilita la selección de la provincia de entrega.
+
+## Tecnologías utilizadas
+
+*   **HTML5**: Utilizado para crear la estructura y contenido de la página web.
+*   **CSS3**: Utilizado para dar estilo y diseño a la página web.
+*   **JavaScript**: Utilizado para agregar interactividad y funcionalidad a la página web.
+*   **API pública**: Utilizada para cargar los nombres de las provincias en el carrito de compras.
 
 ## Requisitos
 
@@ -32,6 +40,7 @@ La Librería en línea es un proyecto que busca proporcionar un espacio virtual 
 2.  Busca libros por título, autor o género
 3.  Selecciona un libro para ver su descripción y reseñas
 4.  Agrega libros a tu carrito de compras
+5.  Selecciona la provincia de entrega en el carrito de compras
 
 ## Contribución
 
@@ -52,4 +61,4 @@ Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos en [agusti
 ## Enlaces
 
 *   [Repositorio en GitHub](https://github.com/agustincomolli/el-rincon-libros)
-*   [Página web de la librería](https://tu-dominio.com)
+*   [Página web de la librería](https://el-rincon-libros.netlify.app/)
