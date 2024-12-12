@@ -234,7 +234,7 @@ function updateSubtotal() {
 async function loadProvinces() {
     try {
         const provincesSelect = document.getElementById("provinces-select");
-        const response = await fetch("http://apis.datos.gob.ar/georef/api/provincias");
+        const response = await fetch("https://apis.datos.gob.ar/georef/api/provincias");
         const data = await response.json();
 
         // Ordenar provincias alfabéticamente
