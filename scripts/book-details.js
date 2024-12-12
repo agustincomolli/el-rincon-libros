@@ -1,4 +1,6 @@
 import { formatCurrency } from "./general.js";
+import { checkCartItems } from "./general.js";
+
 const priceFormatter = formatCurrency();
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -70,6 +72,7 @@ function addToCart(bookId) {
             // Convertir el Map a un array para poder guardarlo en localStorage
             // y convertirlo a JSON
             localStorage.setItem("cart", JSON.stringify([...cart]));
+            checkCartItems();
             showNotification("Libro agregado al carrito");
         }
     };

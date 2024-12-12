@@ -1,4 +1,6 @@
 import { formatCurrency } from "./general.js";
+import { checkCartItems } from "./general.js";
+
 const priceFormatter = formatCurrency();
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search-button");
@@ -173,6 +175,7 @@ function addToCart(bookId) {
             // y convertirlo a JSON
             localStorage.setItem("cart", JSON.stringify([...cart]));
             showNotification("Libro agregado al carrito");
+            checkCartItems();
         }
     };
 }

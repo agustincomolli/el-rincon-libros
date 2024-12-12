@@ -239,6 +239,8 @@ p {
 
   .nav-bar {
     padding: 0 1.5rem;
+    position: relative;
+    z-index: 1000;
   }
 
   .nav-button-label {
@@ -252,6 +254,8 @@ p {
     flex-direction: row;
     gap: 1.5rem;
     background-color: var(--primary-blue-color);
+    z-index: 10;
+    overflow: visible;
   }
 
   .nav-link {
@@ -271,6 +275,30 @@ p {
 
   .bx-cart {
     font-size: 1.5rem;
+  }
+
+  .nav-link.cart-icon {
+    position: relative;
+    overflow: visible;
+  }
+
+  .cart-count {
+    position: absolute;
+    top: -12px;  /* Ajusta para subir el contador */
+    right: -10px; /* Ajusta para mover a la derecha */
+    background-color: #FF4B4B; /* Rojo-naranja suave */
+    color: white;
+    border-radius: 50%; /* Hace que sea circular */
+    padding: 2px 6px;
+    font-size: 0.7rem; /* Tamaño de fuente pequeño */
+    min-width: 18px;  /* Ancho mínimo */
+    width: 18px; /* Añade un ancho fijo */
+    height: 18px;     /* Altura fija */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001; /* Asegura que esté por encima de otros elementos */
   }
 
 }
