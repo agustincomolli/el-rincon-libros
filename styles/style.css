@@ -186,6 +186,10 @@ p {
   font-weight: bold;
 }
 
+.cart-count {
+  display: none;
+}
+
 .heading-2 {
   color: var(--secondary-blue-color);
   margin-block-end: 0;
@@ -284,21 +288,31 @@ p {
 
   .cart-count {
     position: absolute;
-    top: -12px;  /* Ajusta para subir el contador */
-    right: -10px; /* Ajusta para mover a la derecha */
-    background-color: #FF4B4B; /* Rojo-naranja suave */
+    top: -12px;
+    /* Ajusta para subir el contador */
+    right: -10px;
+    /* Ajusta para mover a la derecha */
+    background-color: #FF4B4B;
+    /* Rojo-naranja suave */
     color: white;
-    border-radius: 50%; /* Hace que sea circular */
+    border-radius: 50%;
+    /* Hace que sea circular */
     padding: 2px 6px;
-    font-size: 0.7rem; /* Tamaño de fuente pequeño */
-    min-width: 18px;  /* Ancho mínimo */
-    width: 18px; /* Añade un ancho fijo */
-    height: 18px;     /* Altura fija */
-    overflow: hidden; /* Asegura que el contenido no se desborde */
+    font-size: 0.7rem;
+    /* Tamaño de fuente pequeño */
+    min-width: 18px;
+    /* Ancho mínimo */
+    width: 18px;
+    /* Añade un ancho fijo */
+    height: 18px;
+    /* Altura fija */
+    overflow: hidden;
+    /* Asegura que el contenido no se desborde */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1001; /* Asegura que esté por encima de otros elementos */
+    z-index: 1001;
+    /* Asegura que esté por encima de otros elementos */
   }
 
 }
